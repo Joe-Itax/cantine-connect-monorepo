@@ -1,16 +1,17 @@
 {
-  "name": "shadcn-ui-monorepo",
+  "name": "cantine-connect",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "turbo build",
     "dev": "turbo dev",
+    "build": "turbo run build --filter=web",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "build2": "pnpm --filter database db:deploy && pnpm --filter database db:generate  && pnpm --filter web build",
-    "start": "pnpm --filter web start",
-    "dev2": "pnpm --filter database db:generate && pnpm --filter web dev",
-    "studio": "pnpm --filter database db:studio"
+    "db:generate": "pnpm --filter database run db:generate",
+    "db:deploy": "pnpm --filter database run db:deploy",
+    "db:studio": "pnpm --filter database run db:studio",
+    "dev2": "pnpm run db:generate && pnpm --filter web dev",
+    "build2": "pnpm run db:deploy && pnpm run db:generate && pnpm --filter web build"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",

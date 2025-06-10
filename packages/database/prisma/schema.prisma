@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-// pnpm dlx shadcn@canary add sonner
-//  toast toaster
-//
-// pnpm dlx shadcn@canary add label multiselect pagination popover select table tabs textarea toggle-group toggle
+// pnpm dlx shadcn@canary add @tanstack/react-query @tanstack/react-query-devtools html-to-image lucide-react qrcode.react zod
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
