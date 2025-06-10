@@ -2,10 +2,10 @@
 CREATE TYPE "UserRole" AS ENUM ('admin', 'parent', 'agent');
 
 -- CreateEnum
-CREATE TYPE "StatusSubscription" AS ENUM ('actif', 'expiré');
+CREATE TYPE "StatusSubscription" AS ENUM ('actif', 'expir');
 
 -- CreateTable
-CREATE TABLE "User" (
+CREATE TABLE "user" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT,
@@ -15,8 +15,10 @@ CREATE TABLE "User" (
     "isActive" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "emailVerified" BOOLEAN NOT NULL,
+    "image" TEXT,
 
-    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "user_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -96,20 +98,65 @@ CREATE TABLE "Notification" (
     CONSTRAINT "Notification_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+-- CreateTable
+CREATE TABLE "session" (
+    "id" TEXT NOT NULL,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "token" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "ipAddress" TEXT,
+    "userAgent" TEXT,
+    "userId" TEXT NOT NULL,
+
+    CONSTRAINT "session_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "account" (
+    "id" TEXT NOT NULL,
+    "accountId" TEXT NOT NULL,
+    "providerId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "accessToken" TEXT,
+    "refreshToken" TEXT,
+    "idToken" TEXT,
+    "accessTokenExpiresAt" TIMESTAMP(3),
+    "refreshTokenExpiresAt" TIMESTAMP(3),
+    "scope" TEXT,
+    "password" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "account_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "verification" (
+    "id" TEXT NOT NULL,
+    "identifier" TEXT NOT NULL,
+    "value" TEXT NOT NULL,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3),
+    "updatedAt" TIMESTAMP(3),
+
+    CONSTRAINT "verification_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateIndex
-CREATE INDEX "User_email_idx" ON "User"("email");
+CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 
 -- CreateIndex
-CREATE INDEX "User_searchableName_idx" ON "User"("searchableName");
+CREATE INDEX "user_email_idx" ON "user"("email");
 
 -- CreateIndex
-CREATE INDEX "User_id_idx" ON "User"("id");
+CREATE INDEX "user_searchableName_idx" ON "user"("searchableName");
 
 -- CreateIndex
-CREATE INDEX "User_isActive_idx" ON "User"("isActive");
+CREATE INDEX "user_id_idx" ON "user"("id");
+
+-- CreateIndex
+CREATE INDEX "user_isActive_idx" ON "user"("isActive");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Parent_id_key" ON "Parent"("id");
@@ -150,8 +197,11 @@ CREATE INDEX "CanteenStudent_parentId_idx" ON "CanteenStudent"("parentId");
 -- CreateIndex
 CREATE INDEX "Notification_id_idx" ON "Notification"("id");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "session_token_key" ON "session"("token");
+
 -- AddForeignKey
-ALTER TABLE "Parent" ADD CONSTRAINT "Parent_id_fkey" FOREIGN KEY ("id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Parent" ADD CONSTRAINT "Parent_id_fkey" FOREIGN KEY ("id") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "CanteenStudent" ADD CONSTRAINT "CanteenStudent_parentId_fkey" FOREIGN KEY ("parentId") REFERENCES "Parent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -167,3 +217,9 @@ ALTER TABLE "Repas" ADD CONSTRAINT "Repas_canteenStudentId_fkey" FOREIGN KEY ("c
 
 -- AddForeignKey
 ALTER TABLE "Notification" ADD CONSTRAINT "Notification_canteenStudentId_fkey" FOREIGN KEY ("canteenStudentId") REFERENCES "CanteenStudent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "session" ADD CONSTRAINT "session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "account" ADD CONSTRAINT "account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;

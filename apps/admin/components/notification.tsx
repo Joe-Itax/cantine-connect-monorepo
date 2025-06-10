@@ -17,7 +17,7 @@ import {
   ToastTitle,
   ToastViewport,
 } from "@workspace/ui/components/toast";
-import useProgressTimer from "@/hooks/use-progress-timer";
+import useProgressTimer from "@workspace/ui/hooks/use-progress-timer";
 
 interface NotificationProps {
   type?: "success" | "error" | "info" | "note";

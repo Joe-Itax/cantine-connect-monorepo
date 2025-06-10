@@ -1,13 +1,15 @@
-import { Button } from "@workspace/ui/components/button";
+"use client";
 
-export default function Page() {
-  return (
-    <div className="flex items-center justify-center min-h-svh">
-      <div className="flex flex-col items-center justify-center gap-4">
-        <p className="text-xl font-bold">Hello World</p>
-        <h1 className="text-2xl font-bold">ADMIN APP</h1>
-        <Button size="sm">Button</Button>
-      </div>
-    </div>
-  );
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { DashboardSkeleton } from "@/app/dashboard/skeleton";
+
+export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/dashboard");
+  }, [router]);
+
+  return <DashboardSkeleton />;
 }

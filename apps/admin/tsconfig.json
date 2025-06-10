@@ -18,6 +18,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "../../packages/ui/src/hooks/use-notification.ts", "../../packages/ui/src/hooks/use-progress-timer.tsx"  ],
   "exclude": ["node_modules"]
 }

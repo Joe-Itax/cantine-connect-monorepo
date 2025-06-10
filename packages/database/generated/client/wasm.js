@@ -129,7 +129,9 @@ exports.Prisma.UserScalarFieldEnum = {
   searchableName: 'searchableName',
   isActive: 'isActive',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  emailVerified: 'emailVerified',
+  image: 'image'
 };
 
 exports.Prisma.ParentScalarFieldEnum = {
@@ -191,6 +193,42 @@ exports.Prisma.NotificationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  expiresAt: 'expiresAt',
+  token: 'token',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  userId: 'userId'
+};
+
+exports.Prisma.AccountScalarFieldEnum = {
+  id: 'id',
+  accountId: 'accountId',
+  providerId: 'providerId',
+  userId: 'userId',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  idToken: 'idToken',
+  accessTokenExpiresAt: 'accessTokenExpiresAt',
+  refreshTokenExpiresAt: 'refreshTokenExpiresAt',
+  scope: 'scope',
+  password: 'password',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VerificationScalarFieldEnum = {
+  id: 'id',
+  identifier: 'identifier',
+  value: 'value',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -224,7 +262,7 @@ exports.UserRole = exports.$Enums.UserRole = {
 
 exports.StatusSubscription = exports.$Enums.StatusSubscription = {
   actif: 'actif',
-  expiré: 'expiré'
+  expir: 'expir'
 };
 
 exports.Prisma.ModelName = {
@@ -234,7 +272,10 @@ exports.Prisma.ModelName = {
   CanteenStudent: 'CanteenStudent',
   Abonnement: 'Abonnement',
   Repas: 'Repas',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  Session: 'Session',
+  Account: 'Account',
+  Verification: 'Verification'
 };
 
 /**
