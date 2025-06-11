@@ -28,9 +28,13 @@ import { Label } from "@workspace/ui/components/label";
 import { Textarea } from "@workspace/ui/components/textarea";
 // import Image from "next/image";
 import { Badge } from "@workspace/ui/components/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@workspace/ui/components/avatar";
 import { DropdownMenuShortcut } from "@workspace/ui/components/dropdown-menu";
-import { useAuthUserQuery } from "@/hooks/use-auth-user";
+import { authClient } from "database/auth-client";
 
 const initialAvatarImage = [
   {
@@ -44,7 +48,8 @@ const initialAvatarImage = [
 
 export default function EditStudent() {
   const id = useId();
-  const { data: user } = useAuthUserQuery();
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
   const maxLength = 180;
   const { value, characterCount, handleChange } = useCharacterLimit({
     maxLength,
@@ -200,7 +205,8 @@ function AvatarSection() {
     initialFiles: initialAvatarImage,
   });
 
-  const { data: user } = useAuthUserQuery();
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
   const avatarFallback = user?.name
     .split(" ")
     .map((name) => name[0])
@@ -226,7 +232,7 @@ function AvatarSection() {
         <Avatar className="size-full rounded-full">
           <AvatarImage
             className="object-cover"
-            src={user?.avatarUrl || currentImage || "/placeholder-avatar.png"}
+            src={user?.image || currentImage || "/placeholder-avatar.png"}
             alt={user?.name}
           />
           <AvatarFallback className="rounded-full text-xl">

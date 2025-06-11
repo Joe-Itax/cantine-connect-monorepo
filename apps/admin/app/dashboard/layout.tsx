@@ -14,9 +14,9 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { isLoading } = useAuthRedirect({ ifUnauthenticated: "/login" });
+  const { isPending } = useAuthRedirect({ ifUnauthenticated: "/login" });
 
-  if (isLoading) {
+  if (isPending) {
     return <DashboardSkeleton />;
   }
 
