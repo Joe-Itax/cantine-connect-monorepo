@@ -7,10 +7,11 @@ import {
 } from "@workspace/ui/components/avatar";
 import EditProfile from "./edit-profile";
 import { Separator } from "@workspace/ui/components/separator";
-import { useAuthUserQuery } from "@/hooks/use-auth-user";
+import { authClient } from "database/auth-client";
 
 export default function ProfilePage() {
-  const { data: user } = useAuthUserQuery();
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
 
   if (!user) {
     return <div>Chargement du profil...</div>;
@@ -32,7 +33,7 @@ export default function ProfilePage() {
       <div className="bg-white shadow rounded-lg p-6 flex items-center space-x-6">
         <Avatar className="h-20 w-20 rounded-full">
           <AvatarImage
-            src={user.avatarUrl || "/placeholder-avatar.png"}
+            src={user.image || "/placeholder-avatar.png"}
             alt={user.name}
           />
           <AvatarFallback className="rounded-full text-xl">
@@ -61,7 +62,7 @@ export default function ProfilePage() {
           <InfoItem label="Rôle" value={user.role} />
           <InfoItem
             label="Date de création"
-            value={formatDate(user.createdAt)}
+            value={formatDate(user.createdAt.toString())}
           />
         </div>
       </div>
