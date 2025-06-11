@@ -29,7 +29,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@workspace/ui/components/avatar";
-import { useAuthUserQuery } from "@/hooks/use-auth-user";
+import { authClient } from "database/auth-client";
 import { useUpdateUserMutation } from "@/hooks/use-users";
 
 const initialAvatarImage = [
@@ -45,7 +45,8 @@ const initialAvatarImage = [
 export default function EditProfile() {
   const id = useId();
   const [openDialog, setOpenDialog] = useState(false);
-  const { data: user } = useAuthUserQuery();
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
   const maxLength = 180;
   const { value, characterCount, handleChange } = useCharacterLimit({
     maxLength,
@@ -211,7 +212,8 @@ function AvatarSection() {
     initialFiles: initialAvatarImage,
   });
 
-  const { data: user } = useAuthUserQuery();
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
   const avatarFallback = user?.name
     .split(" ")
     .map((name) => name[0])
@@ -225,7 +227,7 @@ function AvatarSection() {
         <Avatar className="size-full rounded-full">
           <AvatarImage
             className="object-cover"
-            src={user?.avatarUrl || currentImage || "/placeholder-avatar.png"}
+            src={user?.image || currentImage || "/placeholder-avatar.png"}
             alt={user?.name}
           />
           <AvatarFallback className="rounded-full text-xl">

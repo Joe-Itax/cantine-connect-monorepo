@@ -25,8 +25,7 @@ import {
   SidebarMenuItem,
 } from "@workspace/ui/components/sidebar";
 import { LinkIcon } from "lucide-react";
-import { authClient } from "database";
-// import { useAuthUserQuery } from "@/hooks/use-auth-user";
+import { authClient } from "database/auth-client";
 
 const data = {
   user: {
@@ -71,7 +70,6 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  // const { data: user } = useAuthUserQuery();
   const { data: session, error, refetch } = authClient.useSession();
   const user = session?.user;
 
