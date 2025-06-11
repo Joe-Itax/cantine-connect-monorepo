@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import {
@@ -14,9 +15,26 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { isPending } = useAuthRedirect({ ifUnauthenticated: "/login" });
+  const { isPending, user } = useAuthRedirect({ ifUnauthenticated: "/login" });
+  const [showContent, setShowContent] = useState(false);
 
-  if (isPending) {
+  useEffect(() => {
+    if (!isPending) {
+      const timer = setTimeout(() => {
+        setShowContent(true);
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isPending]);
+
+  // Afficher le skeleton tant que isPending est true OU que showContent est false
+  if (isPending || !showContent) {
+    return <DashboardSkeleton />;
+  }
+
+  // Si l'utilisateur n'est pas connecté, rediriger vers le login
+  if (!user) {
     return <DashboardSkeleton />;
   }
 
