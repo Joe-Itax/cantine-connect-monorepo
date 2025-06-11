@@ -255,14 +255,14 @@ exports.Prisma.JsonNullValueFilter = {
   AnyNull: Prisma.AnyNull
 };
 exports.UserRole = exports.$Enums.UserRole = {
-  admin: 'admin',
-  parent: 'parent',
-  agent: 'agent'
+  ADMIN: 'ADMIN',
+  PARENT: 'PARENT',
+  AGENT: 'AGENT'
 };
 
 exports.StatusSubscription = exports.$Enums.StatusSubscription = {
-  actif: 'actif',
-  expir: 'expir'
+  ACTIF: 'ACTIF',
+  EXPIRE: 'EXPIRE'
 };
 
 exports.Prisma.ModelName = {

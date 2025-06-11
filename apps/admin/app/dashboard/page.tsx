@@ -2,7 +2,6 @@
 
 import { ChartAreaInteractive } from "@/components/chart-area-interactive";
 import { SectionCards } from "@/components/section-cards";
-import StudentsDataTable from "@/app/dashboard/components/students-data-table";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 import { useDashboardStatsQuery } from "@/hooks/use-dashboard-overview";
 import { DashboardStats } from "@workspace/ui/types/dashboard-stat";
@@ -36,10 +35,6 @@ export default function DashboardPage() {
           </div>
         </>
       )}
-
-      <div className="px-4 lg:px-6">
-        <StudentsDataTable />
-      </div>
     </div>
   );
 }

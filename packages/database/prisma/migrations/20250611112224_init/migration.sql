@@ -1,15 +1,15 @@
 -- CreateEnum
-CREATE TYPE "UserRole" AS ENUM ('admin', 'parent', 'agent');
+CREATE TYPE "UserRole" AS ENUM ('ADMIN', 'PARENT', 'AGENT');
 
 -- CreateEnum
-CREATE TYPE "StatusSubscription" AS ENUM ('actif', 'expir');
+CREATE TYPE "StatusSubscription" AS ENUM ('ACTIF', 'EXPIRE');
 
 -- CreateTable
 CREATE TABLE "user" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT,
-    "role" "UserRole" NOT NULL,
+    "role" "UserRole" NOT NULL DEFAULT 'PARENT',
     "name" TEXT NOT NULL,
     "searchableName" TEXT NOT NULL DEFAULT '',
     "isActive" BOOLEAN NOT NULL DEFAULT true,

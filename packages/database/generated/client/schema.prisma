@@ -18,7 +18,7 @@ model User {
   id             String   @id @default(uuid())
   email          String   @unique
   password       String?
-  role           UserRole
+  role           UserRole @default(PARENT)
   name           String
   searchableName String   @default("")
   isActive       Boolean  @default(true)
@@ -121,14 +121,14 @@ model Notification {
 }
 
 enum UserRole {
-  admin
-  parent
-  agent
+  ADMIN
+  PARENT
+  AGENT
 }
 
 enum StatusSubscription {
-  actif
-  expir
+  ACTIF
+  EXPIRE
 }
 
 model Session {

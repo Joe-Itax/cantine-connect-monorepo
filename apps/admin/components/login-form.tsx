@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { cn } from "@workspace/ui/lib/utils";
 import { LoginSchema } from "@/lib/validators/login";
@@ -69,6 +69,18 @@ export function LoginForm({
       setIsPending(false);
     }
   };
+  const signUpUserManually = async () => {
+    await authClient.signUp.email({
+      name: "Test",
+      password: "12345678",
+      email: "test@gmail.com",
+      callbackURL: "/dashboard",
+    });
+  };
+
+  useEffect(() => {
+    // signUpUserManually();
+  }, []);
   return (
     <form
       className={cn("flex flex-col gap-6", className)}

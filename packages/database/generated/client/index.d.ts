@@ -69,17 +69,17 @@ export type Verification = $Result.DefaultSelection<Prisma.$VerificationPayload>
  */
 export namespace $Enums {
   export const UserRole: {
-  admin: 'admin',
-  parent: 'parent',
-  agent: 'agent'
+  ADMIN: 'ADMIN',
+  PARENT: 'PARENT',
+  AGENT: 'AGENT'
 };
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
 export const StatusSubscription: {
-  actif: 'actif',
-  expir: 'expir'
+  ACTIF: 'ACTIF',
+  EXPIRE: 'EXPIRE'
 };
 
 export type StatusSubscription = (typeof StatusSubscription)[keyof typeof StatusSubscription]
@@ -14059,7 +14059,7 @@ export namespace Prisma {
     id?: string
     email: string
     password?: string | null
-    role: $Enums.UserRole
+    role?: $Enums.UserRole
     name: string
     searchableName?: string
     isActive?: boolean
@@ -14076,7 +14076,7 @@ export namespace Prisma {
     id?: string
     email: string
     password?: string | null
-    role: $Enums.UserRole
+    role?: $Enums.UserRole
     name: string
     searchableName?: string
     isActive?: boolean
@@ -14127,7 +14127,7 @@ export namespace Prisma {
     id?: string
     email: string
     password?: string | null
-    role: $Enums.UserRole
+    role?: $Enums.UserRole
     name: string
     searchableName?: string
     isActive?: boolean
@@ -16530,7 +16530,7 @@ export namespace Prisma {
     id?: string
     email: string
     password?: string | null
-    role: $Enums.UserRole
+    role?: $Enums.UserRole
     name: string
     searchableName?: string
     isActive?: boolean
@@ -16546,7 +16546,7 @@ export namespace Prisma {
     id?: string
     email: string
     password?: string | null
-    role: $Enums.UserRole
+    role?: $Enums.UserRole
     name: string
     searchableName?: string
     isActive?: boolean
@@ -17202,7 +17202,7 @@ export namespace Prisma {
     id?: string
     email: string
     password?: string | null
-    role: $Enums.UserRole
+    role?: $Enums.UserRole
     name: string
     searchableName?: string
     isActive?: boolean
@@ -17218,7 +17218,7 @@ export namespace Prisma {
     id?: string
     email: string
     password?: string | null
-    role: $Enums.UserRole
+    role?: $Enums.UserRole
     name: string
     searchableName?: string
     isActive?: boolean
@@ -17282,7 +17282,7 @@ export namespace Prisma {
     id?: string
     email: string
     password?: string | null
-    role: $Enums.UserRole
+    role?: $Enums.UserRole
     name: string
     searchableName?: string
     isActive?: boolean
@@ -17298,7 +17298,7 @@ export namespace Prisma {
     id?: string
     email: string
     password?: string | null
-    role: $Enums.UserRole
+    role?: $Enums.UserRole
     name: string
     searchableName?: string
     isActive?: boolean
