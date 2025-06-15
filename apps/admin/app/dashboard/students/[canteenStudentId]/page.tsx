@@ -68,7 +68,10 @@ export default function CanteenStudent() {
   return (
     <section className="p-6 max-w-4xl mx-auto space-y-6">
       <div className="flex items-start gap-4">
-        <Button variant="ghost" onClick={() => router.back()}>
+        <Button
+          variant="ghost"
+          onClick={() => router.push("/dashboard/students")}
+        >
           <MoveLeftIcon />
         </Button>
 

@@ -128,6 +128,7 @@ exports.Prisma.UserScalarFieldEnum = {
   name: 'name',
   searchableName: 'searchableName',
   isActive: 'isActive',
+  slug: 'slug',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   emailVerified: 'emailVerified',
@@ -146,6 +147,7 @@ exports.Prisma.EnrolledStudentScalarFieldEnum = {
   gender: 'gender',
   matricule: 'matricule',
   isRegisteredToCanteen: 'isRegisteredToCanteen',
+  slug: 'slug',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -156,6 +158,7 @@ exports.Prisma.CanteenStudentScalarFieldEnum = {
   matriculeHashe: 'matriculeHashe',
   parentId: 'parentId',
   isActive: 'isActive',
+  slug: 'slug',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

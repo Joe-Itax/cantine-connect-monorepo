@@ -64,7 +64,7 @@ export default function AddStudentToCanteen() {
   // Options parents combinant users initiaux et parents trouvés via recherche
   const parentOptions = [
     ...users
-      .filter((user) => user.role === "parent")
+      .filter((user) => user.role === "PARENT")
       .map((parent) => ({
         value: parent.id,
         label: `${parent.name} (${parent.email})`,
@@ -168,7 +168,7 @@ export default function AddStudentToCanteen() {
                 try {
                   const users = await searchUsersMutation.mutateAsync(query);
                   const newParentOptions = users.data
-                    .filter((user: User) => user.role === "parent")
+                    .filter((user: User) => user.role === "PARENT")
                     .map((user: User) => ({
                       value: user.id,
                       label: `${user.name} (${user.email})`,

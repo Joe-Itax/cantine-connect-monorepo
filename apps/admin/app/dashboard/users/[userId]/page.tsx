@@ -20,7 +20,7 @@ export default function UserDetailsPage() {
     refetch,
   } = useUserQuery(userId as string);
 
-  const isParent = user?.role === "parent";
+  const isParent = user?.role === "PARENT";
 
   if (isLoading) return <LoadingSkeleton />;
   if (isError || !user)
@@ -42,7 +42,7 @@ export default function UserDetailsPage() {
   return (
     <section className="p-6 max-w-4xl mx-auto space-y-6">
       <div className="flex items-start gap-4">
-        <Button variant="ghost" onClick={() => router.back()}>
+        <Button variant="ghost" onClick={() => router.push("/dashboard/users")}>
           <MoveLeftIcon />
         </Button>
         <h2 className="text-2xl font-bold">Profil de {user.name}</h2>

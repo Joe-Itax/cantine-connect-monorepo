@@ -40,32 +40,32 @@ const data = {
       icon: IconDashboard,
     },
     {
-      title: "Elèves",
-      url: "/dashboard/students",
-      icon: IconUsersGroup,
-    },
-    {
-      title: "Users",
+      title: "Utilisateurs",
       url: "/dashboard/users",
       icon: IconUsers,
     },
     {
-      title: "Analytics",
-      url: "/a",
-      icon: IconChartBar,
+      title: "Elèves",
+      url: "/dashboard/students",
+      icon: IconUsersGroup,
     },
-    {
-      title: "Projects",
-      url: "/p",
-      icon: IconFolder,
-    },
+    // {
+    //   title: "Analytics",
+    //   url: "/a",
+    //   icon: IconChartBar,
+    // },
+    // {
+    //   title: "Projects",
+    //   url: "/p",
+    //   icon: IconFolder,
+    // },
   ],
   navSecondary: [
-    {
-      title: "Paramètres",
-      url: "/dashboard/settings",
-      icon: IconSettings,
-    },
+    // {
+    //   title: "Paramètres",
+    //   url: "/dashboard/settings",
+    //   icon: IconSettings,
+    // },
   ],
 };
 

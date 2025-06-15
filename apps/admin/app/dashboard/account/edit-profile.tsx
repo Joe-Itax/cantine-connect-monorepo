@@ -235,13 +235,13 @@ function AvatarSection() {
           </AvatarFallback>
         </Avatar>
       </div>
-      <button
+      {/* <button
         type="button"
         className="absolute -bottom-1 -right-1 bg-primary rounded-full p-1.5 text-white shadow-sm hover:bg-primary/90 transition-colors cursor-pointer"
         onClick={openFileDialog}
       >
         <ImagePlusIcon size={16} />
-      </button>
+      </button> */}
       <input {...getInputProps()} className="sr-only" />
     </div>
   );

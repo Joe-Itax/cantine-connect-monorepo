@@ -18,7 +18,7 @@ import { useAddUserMutation } from "@/hooks/use-users";
 type UserFormData = {
   name: string;
   email: string;
-  role: "parent" | "agent" | "admin";
+  role: "PARENT" | "AGENT" | "ADMIN";
   password: string;
   confirmPassword: string;
 };
@@ -28,7 +28,7 @@ export default function AddUser() {
   const [formData, setFormData] = useState<UserFormData>({
     name: "",
     email: "",
-    role: "parent",
+    role: "PARENT",
     password: "",
     confirmPassword: "",
   });
@@ -80,7 +80,7 @@ export default function AddUser() {
       setFormData({
         name: "",
         email: "",
-        role: "parent",
+        role: "PARENT",
         password: "",
         confirmPassword: "",
       });

@@ -41,11 +41,18 @@ export function LoginForm({
     setErrors({});
 
     try {
-      const signInResponse = await signIn.email({
-        password,
-        email,
-        callbackURL: "/dashboard",
-      });
+      const signInResponse = await signIn.email(
+        {
+          password,
+          email,
+          callbackURL: "/dashboard",
+        },
+        {
+          headers: {
+            "x-app-origin": "admin",
+          },
+        }
+      );
       if (signInResponse.error?.code === "INVALID_EMAIL_OR_PASSWORD") {
         return show("error", "Email ou mot de passe incorrect");
       } else if (signInResponse.error?.code === "ACCOUNT_DEACTIVATED") {
@@ -69,18 +76,7 @@ export function LoginForm({
       setIsPending(false);
     }
   };
-  const signUpUserManually = async () => {
-    await authClient.signUp.email({
-      name: "Test",
-      password: "12345678",
-      email: "test@gmail.com",
-      callbackURL: "/dashboard",
-    });
-  };
 
-  useEffect(() => {
-    // signUpUserManually();
-  }, []);
   return (
     <form
       className={cn("flex flex-col gap-6", className)}

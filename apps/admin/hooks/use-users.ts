@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient, UseQueryResult, UseMutationResul
 import { User } from "@workspace/ui/types/user";
 import { useNotification } from "@workspace/ui/hooks/use-notification";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface GetUsersResponse {
   totalItems: number;
@@ -31,7 +32,7 @@ export function useUsersQuery(): {
     queryFn: async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/users?page=${
+          `/api/users?page=${
             pagination.pageIndex + 1
           }&limit=${pagination.pageSize}`,
           {
@@ -86,7 +87,7 @@ export function useUserQuery(userId: string): UseQueryResult<User, Error> {
     queryFn: async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${userId}`,
+          `/api/users/${userId}`,
           {
             credentials: "include",
           }
@@ -117,7 +118,7 @@ export function useAddUserMutation(): UseMutationResult<
 
   return useMutation({
     mutationFn: async (user: Partial<User>) => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users`, {
+      const res = await fetch(`/api/users`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -142,13 +143,46 @@ export function useAddUserMutation(): UseMutationResult<
 }
 
 // Supprimer un user
-export function useDeleteUserMutation() {
+// export function useDeleteUserMutation() {
+//   const { show } = useNotification();
+//   const queryClient = useQueryClient();
+
+//   return useMutation({
+//     mutationFn: async (userIds: string[]) => {
+//       const res = await fetch(`/api/users`, {
+//         method: "DELETE",
+//         credentials: "include",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({ userIds }),
+//       });
+
+//       const data = await res.json();
+//       if (!res.ok)
+//         throw new Error(data.message || "Erreur lors de la suppression");
+//       return data;
+//     },
+//     onSuccess: (data) => {
+//       show("success", data.message || "Utilisateur supprimé avec succès");
+//       queryClient.invalidateQueries({ queryKey: ["users"] });
+//     },
+//     onError: (error) => {
+//       show(
+//         "error",
+//         error.message || "Erreur lors de la suppression de l'utilisateur"
+//       );
+//     },
+//   });
+// }
+// Désactiver un ou plusieurs utilisateurs
+export function useDeactivateUserMutation() {
   const { show } = useNotification();
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (userIds: string[]) => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users`, {
+      const res = await fetch(`/api/users/deactivate`, {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -158,19 +192,58 @@ export function useDeleteUserMutation() {
       });
 
       const data = await res.json();
-      if (!res.ok)
-        throw new Error(data.message || "Erreur lors de la suppression");
+      if (!res.ok) throw new Error(data.message || "Échec de la désactivation");
       return data;
     },
     onSuccess: (data) => {
-      show("success", data.message || "Utilisateur supprimé avec succès");
+      show("note", data.message || "Utilisateurs désactivés avec succès");
+
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: (error) => {
-      show(
-        "error",
-        error.message || "Erreur lors de la suppression de l'utilisateur"
-      );
+      show("error", error.message || "Erreur lors de la désactivation");
+    },
+  });
+}
+
+// Supprimer définitivement un utilisateur (Et toutes les data lui rattaché)
+export function useDeleteUserMutation() {
+  const { show } = useNotification();
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: async (userId: string) => {
+      const res = await fetch(`/api/users/${userId}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || "Échec de la suppression");
+      }
+
+      return data;
+    },
+    onSuccess: (data, userId) => {
+      show("success", data.message || "Utilisateur supprimé définitivement");
+
+      // Invalider les requêtes affectées
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard-overview"] });
+      router.push("/dashboard/users");
+
+      // Si l'utilisateur supprimé est l'utilisateur courant
+      if (
+        (queryClient.getQueryData(["auth-user"]) as User | undefined)?.id ===
+        userId
+      ) {
+        router.push("/login");
+      }
+    },
+    onError: (error: Error) => {
+      show("error", error.message || "Erreur lors de la suppression");
     },
   });
 }
@@ -181,7 +254,7 @@ export function useSearchUsersMutation() {
   return useMutation({
     mutationFn: async (query: string) => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/search?query=${query}`,
+        `/api/users/search?query=${query}`,
         { credentials: "include" }
       );
       const data = await res.json();
@@ -207,7 +280,7 @@ export function useUpdateUserMutation() {
     mutationFn: async (user: Partial<User>) => {
       const { id, ...payload } = user;
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${id}`,
+        `/api/users/${id}`,
         {
           method: "PUT",
           credentials: "include",

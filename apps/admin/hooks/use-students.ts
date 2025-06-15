@@ -35,10 +35,9 @@ export function useEnrolledStudentsQuery(): UseQueryResult<
     queryKey: ["enrolled-students"],
     queryFn: async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/enrolled`,
-          { credentials: "include" }
-        );
+        const res = await fetch(`/api/students/enrolled`, {
+          credentials: "include",
+        });
         if (!res.ok) {
           show("error", "Erreur lors du chargement des élèves inscrits.");
           throw new Error("Erreur récupération des élèves inscrits");
@@ -61,10 +60,9 @@ export function useSearchEnrolledStudentsMutation(): UseMutationResult<
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (query: string) => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/enrolled/search?query=${query}`,
-        { credentials: "include" }
-      );
+      const res = await fetch(`/api/students/enrolled/search?query=${query}`, {
+        credentials: "include",
+      });
       if (!res.ok) throw new Error("Erreur recherche des élèves inscrits");
       const data = await res.json();
       return data.data as EnrolledStudent[];
@@ -79,10 +77,9 @@ export function useEnrolledStudentByIdQuery(id: string) {
   return useQuery({
     queryKey: ["enrolled-student", id],
     queryFn: async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/enrolled/${id}`,
-        { credentials: "include" }
-      );
+      const res = await fetch(`/api/students/enrolled/${id}`, {
+        credentials: "include",
+      });
       if (!res.ok) throw new Error("Erreur récupération élève");
       const data = await res.json();
       return data.user as EnrolledStudent;
@@ -101,15 +98,12 @@ export function useUpdateEnrolledStudentMutation() {
       id: string;
       payload: Partial<EnrolledStudent>;
     }) => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/enrolled/${id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`/api/students/enrolled/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        credentials: "include",
+      });
       if (!res.ok) throw new Error("Erreur update élève");
       return res.json();
     },
@@ -137,7 +131,7 @@ export function useCanteenStudentsQuery(): {
     queryFn: async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/canteen?page=${
+          `/api/students/canteen?page=${
             pagination.pageIndex + 1
           }&limit=${pagination.pageSize}`,
           {
@@ -191,10 +185,9 @@ export function useSearchCanteenStudentsMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (query: string) => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/canteen/search?query=${query}`,
-        { credentials: "include" }
-      );
+      const res = await fetch(`/api/students/canteen/search?query=${query}`, {
+        credentials: "include",
+      });
       const data = await res.json();
       if (!res.ok)
         throw new Error(
@@ -215,10 +208,9 @@ export function useCanteenStudentByIdQuery(id: string) {
     queryKey: ["canteen-student", id],
     queryFn: async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/canteen/${id}`,
-          { credentials: "include" }
-        );
+        const res = await fetch(`/api/students/canteen/${id}`, {
+          credentials: "include",
+        });
         if (!res.ok) throw new Error("Erreur récupération élève");
         const data = await res.json();
         return data;
@@ -239,15 +231,12 @@ export function useAddCanteenStudentMutation() {
       parentId: string;
     }) => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/canteen`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
-            body: JSON.stringify(payload),
-          }
-        );
+        const res = await fetch(`/api/students/canteen`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(payload),
+        });
 
         const data = await res.json();
         if (!res.ok) {
@@ -295,7 +284,7 @@ export function useReRegisterCanteenStudentMutation() {
   return useMutation({
     mutationFn: async (canteenStudentId: string) => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/canteen/re-register/${canteenStudentId}`,
+        `/api/students/canteen/re-register/${canteenStudentId}`,
         {
           method: "POST",
           credentials: "include",
@@ -327,17 +316,14 @@ export function useRemoveCanteenStudentMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (canteenStudentIds: string[]) => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/canteen`,
-        {
-          method: "DELETE",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ canteenStudentIds }),
-        }
-      );
+      const res = await fetch(`/api/students/canteen`, {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ canteenStudentIds }),
+      });
       const data = await res.json();
       if (!res.ok) {
         show("error", data.message || "Erreur lors de la désinscription.");
@@ -374,10 +360,9 @@ export function useCanteenStudentsByParentQuery(parentId: string) {
     queryKey: ["canteen-students-by-parent", parentId],
     queryFn: async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/canteen/by-parent/${parentId}`,
-          { credentials: "include" }
-        );
+        const res = await fetch(`/api/students/canteen/by-parent/${parentId}`, {
+          credentials: "include",
+        });
         if (!res.ok) throw new Error("Erreur élèves par parent");
         const data = await res.json();
         return data.data as CanteenStudent[];
@@ -403,7 +388,7 @@ export function useBuySubscriptionMutation() {
       payload: { duration: number; price: number };
     }) => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/canteen/${canteenStudentId}/subscription`,
+        `/api/students/canteen/${canteenStudentId}/subscription`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -432,15 +417,12 @@ export function useScanQRCodeMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (matriculeHashe: string) => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/canteen/scan`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ matriculeHashe }),
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`/api/students/canteen/scan`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ matriculeHashe }),
+        credentials: "include",
+      });
       if (!res.ok) throw new Error("Erreur scan QR Code");
       return res.json();
     },
@@ -463,7 +445,7 @@ export function useNotificationsQuery(canteenStudentId: string) {
     queryKey: ["notifications", canteenStudentId],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/canteen/${canteenStudentId}/notifications`,
+        `/api/students/canteen/${canteenStudentId}/notifications`,
         { credentials: "include" }
       );
       if (!res.ok) throw new Error("Erreur récupération notifications");
@@ -479,7 +461,7 @@ export function useMarkAllNotificationsMutation() {
   return useMutation({
     mutationFn: async (canteenStudentId: string) => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/canteen/${canteenStudentId}/notifications`,
+        `/api/students/canteen/${canteenStudentId}/notifications`,
         {
           method: "PATCH",
           credentials: "include",
@@ -510,7 +492,7 @@ export function useMarkOneNotificationMutation() {
       notificationId: number;
     }) => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/canteen/${canteenStudentId}/notifications/${notificationId}`,
+        `/api/students/canteen/${canteenStudentId}/notifications/${notificationId}`,
         {
           method: "PATCH",
           credentials: "include",
@@ -535,7 +517,7 @@ export function useMealHistoryQuery(canteenStudentId: string) {
     queryKey: ["meal-history", canteenStudentId],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/students/canteen/${canteenStudentId}/meal-history`,
+        `/api/students/canteen/${canteenStudentId}/meal-history`,
         { credentials: "include" }
       );
       if (!res.ok) throw new Error("Erreur récupération historique repas");

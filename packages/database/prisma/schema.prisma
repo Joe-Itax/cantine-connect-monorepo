@@ -22,6 +22,7 @@ model User {
   name           String
   searchableName String   @default("")
   isActive       Boolean  @default(true)
+  slug           String   @unique
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   parent         Parent?
@@ -52,6 +53,7 @@ model EnrolledStudent {
   gender                String
   matricule             String          @unique
   isRegisteredToCanteen Boolean         @default(false)
+  slug                  String          @unique
   createdAt             DateTime        @default(now())
   updatedAt             DateTime        @updatedAt
   canteenStudent        CanteenStudent?
@@ -68,6 +70,7 @@ model CanteenStudent {
   matriculeHashe    String          @unique
   parentId          String
   isActive          Boolean         @default(true)
+  slug              String          @unique
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
   abonnements       Abonnement[]

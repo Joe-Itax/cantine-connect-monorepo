@@ -16,7 +16,7 @@ export const auth = betterAuth({
       role: {
         type: "string",
         required: true,
-        defaultValue: "ADMIN",
+        defaultValue: "PARENT",
       },
       searchableName: {
         type: "string",
@@ -27,7 +27,11 @@ export const auth = betterAuth({
         type: "boolean",
         required: true,
         defaultValue: true,
-        input: false,
+      },
+      slug: {
+        type: "string",
+        required: true,
+        defaultValue: "",
       },
     },
     changeEmail: {
@@ -37,6 +41,7 @@ export const auth = betterAuth({
   hooks: {
     before: createAuthMiddleware(async (ctx) => {
       // Vérifier si c'est la requête de connexion par email/mot de passe
+
       if (ctx.path !== "/sign-in/email") {
         return; // Ne rien faire pour les autres endpoints
       }
@@ -59,6 +64,38 @@ export const auth = betterAuth({
           message:
             "Votre compte est désactivé. Veuillez contacter l'administrateur.",
         });
+      }
+
+      if (ctx.path === "/sign-in/email") {
+        if (ctx.request?.headers.get("x-app-origin") === "admin") {
+          const email = ctx.body?.email;
+          const user = await prisma.user.findUnique({
+            where: { email },
+            select: { role: true },
+          });
+
+          if (!user || user.role !== "ADMIN") {
+            throw new APIError("UNAUTHORIZED", {
+              message: "Email ou mot de passe incorrect",
+              code: "INVALID_EMAIL_OR_PASSWORD",
+            });
+          }
+        }
+
+        if (ctx.request?.headers.get("x-app-origin") === "client") {
+          const email = ctx.body?.email;
+          const user = await prisma.user.findUnique({
+            where: { email },
+            select: { role: true },
+          });
+
+          if (!user || (user.role !== "AGENT" && user.role !== "PARENT")) {
+            throw new APIError("UNAUTHORIZED", {
+              message: "Email ou mot de passe incorrect",
+              code: "INVALID_EMAIL_OR_PASSWORD",
+            });
+          }
+        }
       }
 
       return;

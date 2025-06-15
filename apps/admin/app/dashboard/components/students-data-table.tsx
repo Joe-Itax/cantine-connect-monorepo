@@ -141,7 +141,7 @@ const columns: ColumnDef<CanteenStudent>[] = [
         {row.original.enrolledStudent.name}
       </div>
     ),
-    size: 150,
+    size: 170,
     enableHiding: false,
   },
   {
@@ -149,7 +149,7 @@ const columns: ColumnDef<CanteenStudent>[] = [
     id: "email",
     header: "Email Parent",
     cell: ({ row }) => <div>{row.original.parent.user.email}</div>,
-    size: 150,
+    size: 220,
   },
   {
     accessorFn: (row) => row.enrolledStudent.class,
@@ -160,7 +160,7 @@ const columns: ColumnDef<CanteenStudent>[] = [
         {row.original.enrolledStudent.class}
       </div>
     ),
-    size: 300,
+    size: 80,
   },
   {
     accessorFn: (row) =>

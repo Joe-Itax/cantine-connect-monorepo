@@ -1855,6 +1855,7 @@ export namespace Prisma {
     name: string | null
     searchableName: string | null
     isActive: boolean | null
+    slug: string | null
     createdAt: Date | null
     updatedAt: Date | null
     emailVerified: boolean | null
@@ -1869,6 +1870,7 @@ export namespace Prisma {
     name: string | null
     searchableName: string | null
     isActive: boolean | null
+    slug: string | null
     createdAt: Date | null
     updatedAt: Date | null
     emailVerified: boolean | null
@@ -1883,6 +1885,7 @@ export namespace Prisma {
     name: number
     searchableName: number
     isActive: number
+    slug: number
     createdAt: number
     updatedAt: number
     emailVerified: number
@@ -1899,6 +1902,7 @@ export namespace Prisma {
     name?: true
     searchableName?: true
     isActive?: true
+    slug?: true
     createdAt?: true
     updatedAt?: true
     emailVerified?: true
@@ -1913,6 +1917,7 @@ export namespace Prisma {
     name?: true
     searchableName?: true
     isActive?: true
+    slug?: true
     createdAt?: true
     updatedAt?: true
     emailVerified?: true
@@ -1927,6 +1932,7 @@ export namespace Prisma {
     name?: true
     searchableName?: true
     isActive?: true
+    slug?: true
     createdAt?: true
     updatedAt?: true
     emailVerified?: true
@@ -2014,6 +2020,7 @@ export namespace Prisma {
     name: string
     searchableName: string
     isActive: boolean
+    slug: string
     createdAt: Date
     updatedAt: Date
     emailVerified: boolean
@@ -2045,6 +2052,7 @@ export namespace Prisma {
     name?: boolean
     searchableName?: boolean
     isActive?: boolean
+    slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     emailVerified?: boolean
@@ -2063,6 +2071,7 @@ export namespace Prisma {
     name?: boolean
     searchableName?: boolean
     isActive?: boolean
+    slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     emailVerified?: boolean
@@ -2077,6 +2086,7 @@ export namespace Prisma {
     name?: boolean
     searchableName?: boolean
     isActive?: boolean
+    slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     emailVerified?: boolean
@@ -2091,13 +2101,14 @@ export namespace Prisma {
     name?: boolean
     searchableName?: boolean
     isActive?: boolean
+    slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     emailVerified?: boolean
     image?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "role" | "name" | "searchableName" | "isActive" | "createdAt" | "updatedAt" | "emailVerified" | "image", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "role" | "name" | "searchableName" | "isActive" | "slug" | "createdAt" | "updatedAt" | "emailVerified" | "image", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     parent?: boolean | User$parentArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -2122,6 +2133,7 @@ export namespace Prisma {
       name: string
       searchableName: string
       isActive: boolean
+      slug: string
       createdAt: Date
       updatedAt: Date
       emailVerified: boolean
@@ -2559,6 +2571,7 @@ export namespace Prisma {
     readonly name: FieldRef<"User", 'String'>
     readonly searchableName: FieldRef<"User", 'String'>
     readonly isActive: FieldRef<"User", 'Boolean'>
+    readonly slug: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly emailVerified: FieldRef<"User", 'Boolean'>
@@ -4090,6 +4103,7 @@ export namespace Prisma {
     gender: string | null
     matricule: string | null
     isRegisteredToCanteen: boolean | null
+    slug: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4102,6 +4116,7 @@ export namespace Prisma {
     gender: string | null
     matricule: string | null
     isRegisteredToCanteen: boolean | null
+    slug: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4114,6 +4129,7 @@ export namespace Prisma {
     gender: number
     matricule: number
     isRegisteredToCanteen: number
+    slug: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4128,6 +4144,7 @@ export namespace Prisma {
     gender?: true
     matricule?: true
     isRegisteredToCanteen?: true
+    slug?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4140,6 +4157,7 @@ export namespace Prisma {
     gender?: true
     matricule?: true
     isRegisteredToCanteen?: true
+    slug?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4152,6 +4170,7 @@ export namespace Prisma {
     gender?: true
     matricule?: true
     isRegisteredToCanteen?: true
+    slug?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4237,6 +4256,7 @@ export namespace Prisma {
     gender: string
     matricule: string
     isRegisteredToCanteen: boolean
+    slug: string
     createdAt: Date
     updatedAt: Date
     _count: EnrolledStudentCountAggregateOutputType | null
@@ -4266,6 +4286,7 @@ export namespace Prisma {
     gender?: boolean
     matricule?: boolean
     isRegisteredToCanteen?: boolean
+    slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     canteenStudent?: boolean | EnrolledStudent$canteenStudentArgs<ExtArgs>
@@ -4279,6 +4300,7 @@ export namespace Prisma {
     gender?: boolean
     matricule?: boolean
     isRegisteredToCanteen?: boolean
+    slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["enrolledStudent"]>
@@ -4291,6 +4313,7 @@ export namespace Prisma {
     gender?: boolean
     matricule?: boolean
     isRegisteredToCanteen?: boolean
+    slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["enrolledStudent"]>
@@ -4303,11 +4326,12 @@ export namespace Prisma {
     gender?: boolean
     matricule?: boolean
     isRegisteredToCanteen?: boolean
+    slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type EnrolledStudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "searchableName" | "class" | "gender" | "matricule" | "isRegisteredToCanteen" | "createdAt" | "updatedAt", ExtArgs["result"]["enrolledStudent"]>
+  export type EnrolledStudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "searchableName" | "class" | "gender" | "matricule" | "isRegisteredToCanteen" | "slug" | "createdAt" | "updatedAt", ExtArgs["result"]["enrolledStudent"]>
   export type EnrolledStudentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     canteenStudent?: boolean | EnrolledStudent$canteenStudentArgs<ExtArgs>
   }
@@ -4327,6 +4351,7 @@ export namespace Prisma {
       gender: string
       matricule: string
       isRegisteredToCanteen: boolean
+      slug: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["enrolledStudent"]>
@@ -4760,6 +4785,7 @@ export namespace Prisma {
     readonly gender: FieldRef<"EnrolledStudent", 'String'>
     readonly matricule: FieldRef<"EnrolledStudent", 'String'>
     readonly isRegisteredToCanteen: FieldRef<"EnrolledStudent", 'Boolean'>
+    readonly slug: FieldRef<"EnrolledStudent", 'String'>
     readonly createdAt: FieldRef<"EnrolledStudent", 'DateTime'>
     readonly updatedAt: FieldRef<"EnrolledStudent", 'DateTime'>
   }
@@ -5203,6 +5229,7 @@ export namespace Prisma {
     matriculeHashe: string | null
     parentId: string | null
     isActive: boolean | null
+    slug: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5213,6 +5240,7 @@ export namespace Prisma {
     matriculeHashe: string | null
     parentId: string | null
     isActive: boolean | null
+    slug: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5223,6 +5251,7 @@ export namespace Prisma {
     matriculeHashe: number
     parentId: number
     isActive: number
+    slug: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -5235,6 +5264,7 @@ export namespace Prisma {
     matriculeHashe?: true
     parentId?: true
     isActive?: true
+    slug?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5245,6 +5275,7 @@ export namespace Prisma {
     matriculeHashe?: true
     parentId?: true
     isActive?: true
+    slug?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5255,6 +5286,7 @@ export namespace Prisma {
     matriculeHashe?: true
     parentId?: true
     isActive?: true
+    slug?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5338,6 +5370,7 @@ export namespace Prisma {
     matriculeHashe: string
     parentId: string
     isActive: boolean
+    slug: string
     createdAt: Date
     updatedAt: Date
     _count: CanteenStudentCountAggregateOutputType | null
@@ -5365,6 +5398,7 @@ export namespace Prisma {
     matriculeHashe?: boolean
     parentId?: boolean
     isActive?: boolean
+    slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     abonnements?: boolean | CanteenStudent$abonnementsArgs<ExtArgs>
@@ -5381,6 +5415,7 @@ export namespace Prisma {
     matriculeHashe?: boolean
     parentId?: boolean
     isActive?: boolean
+    slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     parent?: boolean | ParentDefaultArgs<ExtArgs>
@@ -5393,6 +5428,7 @@ export namespace Prisma {
     matriculeHashe?: boolean
     parentId?: boolean
     isActive?: boolean
+    slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     parent?: boolean | ParentDefaultArgs<ExtArgs>
@@ -5405,11 +5441,12 @@ export namespace Prisma {
     matriculeHashe?: boolean
     parentId?: boolean
     isActive?: boolean
+    slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CanteenStudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "enrolledStudentId" | "matriculeHashe" | "parentId" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["canteenStudent"]>
+  export type CanteenStudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "enrolledStudentId" | "matriculeHashe" | "parentId" | "isActive" | "slug" | "createdAt" | "updatedAt", ExtArgs["result"]["canteenStudent"]>
   export type CanteenStudentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     abonnements?: boolean | CanteenStudent$abonnementsArgs<ExtArgs>
     notifications?: boolean | CanteenStudent$notificationsArgs<ExtArgs>
@@ -5442,6 +5479,7 @@ export namespace Prisma {
       matriculeHashe: string
       parentId: string
       isActive: boolean
+      slug: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["canteenStudent"]>
@@ -5877,6 +5915,7 @@ export namespace Prisma {
     readonly matriculeHashe: FieldRef<"CanteenStudent", 'String'>
     readonly parentId: FieldRef<"CanteenStudent", 'String'>
     readonly isActive: FieldRef<"CanteenStudent", 'Boolean'>
+    readonly slug: FieldRef<"CanteenStudent", 'String'>
     readonly createdAt: FieldRef<"CanteenStudent", 'DateTime'>
     readonly updatedAt: FieldRef<"CanteenStudent", 'DateTime'>
   }
@@ -13051,6 +13090,7 @@ export namespace Prisma {
     name: 'name',
     searchableName: 'searchableName',
     isActive: 'isActive',
+    slug: 'slug',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     emailVerified: 'emailVerified',
@@ -13075,6 +13115,7 @@ export namespace Prisma {
     gender: 'gender',
     matricule: 'matricule',
     isRegisteredToCanteen: 'isRegisteredToCanteen',
+    slug: 'slug',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -13088,6 +13129,7 @@ export namespace Prisma {
     matriculeHashe: 'matriculeHashe',
     parentId: 'parentId',
     isActive: 'isActive',
+    slug: 'slug',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -13347,6 +13389,7 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     searchableName?: StringFilter<"User"> | string
     isActive?: BoolFilter<"User"> | boolean
+    slug?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     emailVerified?: BoolFilter<"User"> | boolean
@@ -13364,6 +13407,7 @@ export namespace Prisma {
     name?: SortOrder
     searchableName?: SortOrder
     isActive?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     emailVerified?: SortOrder
@@ -13376,6 +13420,7 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    slug?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -13391,7 +13436,7 @@ export namespace Prisma {
     parent?: XOR<ParentNullableScalarRelationFilter, ParentWhereInput> | null
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "slug">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -13401,6 +13446,7 @@ export namespace Prisma {
     name?: SortOrder
     searchableName?: SortOrder
     isActive?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     emailVerified?: SortOrder
@@ -13421,6 +13467,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"User"> | string
     searchableName?: StringWithAggregatesFilter<"User"> | string
     isActive?: BoolWithAggregatesFilter<"User"> | boolean
+    slug?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
@@ -13476,6 +13523,7 @@ export namespace Prisma {
     gender?: StringFilter<"EnrolledStudent"> | string
     matricule?: StringFilter<"EnrolledStudent"> | string
     isRegisteredToCanteen?: BoolFilter<"EnrolledStudent"> | boolean
+    slug?: StringFilter<"EnrolledStudent"> | string
     createdAt?: DateTimeFilter<"EnrolledStudent"> | Date | string
     updatedAt?: DateTimeFilter<"EnrolledStudent"> | Date | string
     canteenStudent?: XOR<CanteenStudentNullableScalarRelationFilter, CanteenStudentWhereInput> | null
@@ -13489,6 +13537,7 @@ export namespace Prisma {
     gender?: SortOrder
     matricule?: SortOrder
     isRegisteredToCanteen?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     canteenStudent?: CanteenStudentOrderByWithRelationInput
@@ -13497,6 +13546,7 @@ export namespace Prisma {
   export type EnrolledStudentWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     matricule?: string
+    slug?: string
     AND?: EnrolledStudentWhereInput | EnrolledStudentWhereInput[]
     OR?: EnrolledStudentWhereInput[]
     NOT?: EnrolledStudentWhereInput | EnrolledStudentWhereInput[]
@@ -13508,7 +13558,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"EnrolledStudent"> | Date | string
     updatedAt?: DateTimeFilter<"EnrolledStudent"> | Date | string
     canteenStudent?: XOR<CanteenStudentNullableScalarRelationFilter, CanteenStudentWhereInput> | null
-  }, "id" | "matricule">
+  }, "id" | "matricule" | "slug">
 
   export type EnrolledStudentOrderByWithAggregationInput = {
     id?: SortOrder
@@ -13518,6 +13568,7 @@ export namespace Prisma {
     gender?: SortOrder
     matricule?: SortOrder
     isRegisteredToCanteen?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: EnrolledStudentCountOrderByAggregateInput
@@ -13536,6 +13587,7 @@ export namespace Prisma {
     gender?: StringWithAggregatesFilter<"EnrolledStudent"> | string
     matricule?: StringWithAggregatesFilter<"EnrolledStudent"> | string
     isRegisteredToCanteen?: BoolWithAggregatesFilter<"EnrolledStudent"> | boolean
+    slug?: StringWithAggregatesFilter<"EnrolledStudent"> | string
     createdAt?: DateTimeWithAggregatesFilter<"EnrolledStudent"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"EnrolledStudent"> | Date | string
   }
@@ -13549,6 +13601,7 @@ export namespace Prisma {
     matriculeHashe?: StringFilter<"CanteenStudent"> | string
     parentId?: StringFilter<"CanteenStudent"> | string
     isActive?: BoolFilter<"CanteenStudent"> | boolean
+    slug?: StringFilter<"CanteenStudent"> | string
     createdAt?: DateTimeFilter<"CanteenStudent"> | Date | string
     updatedAt?: DateTimeFilter<"CanteenStudent"> | Date | string
     abonnements?: AbonnementListRelationFilter
@@ -13564,6 +13617,7 @@ export namespace Prisma {
     matriculeHashe?: SortOrder
     parentId?: SortOrder
     isActive?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     abonnements?: AbonnementOrderByRelationAggregateInput
@@ -13577,6 +13631,7 @@ export namespace Prisma {
     id?: string
     enrolledStudentId?: string
     matriculeHashe?: string
+    slug?: string
     AND?: CanteenStudentWhereInput | CanteenStudentWhereInput[]
     OR?: CanteenStudentWhereInput[]
     NOT?: CanteenStudentWhereInput | CanteenStudentWhereInput[]
@@ -13589,7 +13644,7 @@ export namespace Prisma {
     repas?: RepasListRelationFilter
     parent?: XOR<ParentScalarRelationFilter, ParentWhereInput>
     enrolledStudent?: XOR<EnrolledStudentScalarRelationFilter, EnrolledStudentWhereInput>
-  }, "id" | "enrolledStudentId" | "matriculeHashe">
+  }, "id" | "enrolledStudentId" | "matriculeHashe" | "slug">
 
   export type CanteenStudentOrderByWithAggregationInput = {
     id?: SortOrder
@@ -13597,6 +13652,7 @@ export namespace Prisma {
     matriculeHashe?: SortOrder
     parentId?: SortOrder
     isActive?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CanteenStudentCountOrderByAggregateInput
@@ -13613,6 +13669,7 @@ export namespace Prisma {
     matriculeHashe?: StringWithAggregatesFilter<"CanteenStudent"> | string
     parentId?: StringWithAggregatesFilter<"CanteenStudent"> | string
     isActive?: BoolWithAggregatesFilter<"CanteenStudent"> | boolean
+    slug?: StringWithAggregatesFilter<"CanteenStudent"> | string
     createdAt?: DateTimeWithAggregatesFilter<"CanteenStudent"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CanteenStudent"> | Date | string
   }
@@ -14063,6 +14120,7 @@ export namespace Prisma {
     name: string
     searchableName?: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     emailVerified: boolean
@@ -14080,6 +14138,7 @@ export namespace Prisma {
     name: string
     searchableName?: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     emailVerified: boolean
@@ -14097,6 +14156,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     searchableName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -14114,6 +14174,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     searchableName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -14131,6 +14192,7 @@ export namespace Prisma {
     name: string
     searchableName?: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     emailVerified: boolean
@@ -14145,6 +14207,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     searchableName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -14159,6 +14222,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     searchableName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -14205,6 +14269,7 @@ export namespace Prisma {
     gender: string
     matricule: string
     isRegisteredToCanteen?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     canteenStudent?: CanteenStudentCreateNestedOneWithoutEnrolledStudentInput
@@ -14218,6 +14283,7 @@ export namespace Prisma {
     gender: string
     matricule: string
     isRegisteredToCanteen?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     canteenStudent?: CanteenStudentUncheckedCreateNestedOneWithoutEnrolledStudentInput
@@ -14231,6 +14297,7 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     matricule?: StringFieldUpdateOperationsInput | string
     isRegisteredToCanteen?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     canteenStudent?: CanteenStudentUpdateOneWithoutEnrolledStudentNestedInput
@@ -14244,6 +14311,7 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     matricule?: StringFieldUpdateOperationsInput | string
     isRegisteredToCanteen?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     canteenStudent?: CanteenStudentUncheckedUpdateOneWithoutEnrolledStudentNestedInput
@@ -14257,6 +14325,7 @@ export namespace Prisma {
     gender: string
     matricule: string
     isRegisteredToCanteen?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14269,6 +14338,7 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     matricule?: StringFieldUpdateOperationsInput | string
     isRegisteredToCanteen?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14281,6 +14351,7 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     matricule?: StringFieldUpdateOperationsInput | string
     isRegisteredToCanteen?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14289,6 +14360,7 @@ export namespace Prisma {
     id?: string
     matriculeHashe: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     abonnements?: AbonnementCreateNestedManyWithoutCanteenStudentInput
@@ -14304,6 +14376,7 @@ export namespace Prisma {
     matriculeHashe: string
     parentId: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     abonnements?: AbonnementUncheckedCreateNestedManyWithoutCanteenStudentInput
@@ -14315,6 +14388,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     abonnements?: AbonnementUpdateManyWithoutCanteenStudentNestedInput
@@ -14330,6 +14404,7 @@ export namespace Prisma {
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     parentId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     abonnements?: AbonnementUncheckedUpdateManyWithoutCanteenStudentNestedInput
@@ -14343,6 +14418,7 @@ export namespace Prisma {
     matriculeHashe: string
     parentId: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14351,6 +14427,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14361,6 +14438,7 @@ export namespace Prisma {
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     parentId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14925,6 +15003,7 @@ export namespace Prisma {
     name?: SortOrder
     searchableName?: SortOrder
     isActive?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     emailVerified?: SortOrder
@@ -14939,6 +15018,7 @@ export namespace Prisma {
     name?: SortOrder
     searchableName?: SortOrder
     isActive?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     emailVerified?: SortOrder
@@ -14953,6 +15033,7 @@ export namespace Prisma {
     name?: SortOrder
     searchableName?: SortOrder
     isActive?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     emailVerified?: SortOrder
@@ -15067,6 +15148,7 @@ export namespace Prisma {
     gender?: SortOrder
     matricule?: SortOrder
     isRegisteredToCanteen?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15079,6 +15161,7 @@ export namespace Prisma {
     gender?: SortOrder
     matricule?: SortOrder
     isRegisteredToCanteen?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15091,6 +15174,7 @@ export namespace Prisma {
     gender?: SortOrder
     matricule?: SortOrder
     isRegisteredToCanteen?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15141,6 +15225,7 @@ export namespace Prisma {
     matriculeHashe?: SortOrder
     parentId?: SortOrder
     isActive?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15151,6 +15236,7 @@ export namespace Prisma {
     matriculeHashe?: SortOrder
     parentId?: SortOrder
     isActive?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15161,6 +15247,7 @@ export namespace Prisma {
     matriculeHashe?: SortOrder
     parentId?: SortOrder
     isActive?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -16534,6 +16621,7 @@ export namespace Prisma {
     name: string
     searchableName?: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     emailVerified: boolean
@@ -16550,6 +16638,7 @@ export namespace Prisma {
     name: string
     searchableName?: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     emailVerified: boolean
@@ -16567,6 +16656,7 @@ export namespace Prisma {
     id?: string
     matriculeHashe: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     abonnements?: AbonnementCreateNestedManyWithoutCanteenStudentInput
@@ -16580,6 +16670,7 @@ export namespace Prisma {
     enrolledStudentId: string
     matriculeHashe: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     abonnements?: AbonnementUncheckedCreateNestedManyWithoutCanteenStudentInput
@@ -16616,6 +16707,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     searchableName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -16632,6 +16724,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     searchableName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -16665,6 +16758,7 @@ export namespace Prisma {
     matriculeHashe?: StringFilter<"CanteenStudent"> | string
     parentId?: StringFilter<"CanteenStudent"> | string
     isActive?: BoolFilter<"CanteenStudent"> | boolean
+    slug?: StringFilter<"CanteenStudent"> | string
     createdAt?: DateTimeFilter<"CanteenStudent"> | Date | string
     updatedAt?: DateTimeFilter<"CanteenStudent"> | Date | string
   }
@@ -16673,6 +16767,7 @@ export namespace Prisma {
     id?: string
     matriculeHashe: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     abonnements?: AbonnementCreateNestedManyWithoutCanteenStudentInput
@@ -16686,6 +16781,7 @@ export namespace Prisma {
     matriculeHashe: string
     parentId: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     abonnements?: AbonnementUncheckedCreateNestedManyWithoutCanteenStudentInput
@@ -16713,6 +16809,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     abonnements?: AbonnementUpdateManyWithoutCanteenStudentNestedInput
@@ -16726,6 +16823,7 @@ export namespace Prisma {
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     parentId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     abonnements?: AbonnementUncheckedUpdateManyWithoutCanteenStudentNestedInput
@@ -16841,6 +16939,7 @@ export namespace Prisma {
     gender: string
     matricule: string
     isRegisteredToCanteen?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16853,6 +16952,7 @@ export namespace Prisma {
     gender: string
     matricule: string
     isRegisteredToCanteen?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16990,6 +17090,7 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     matricule?: StringFieldUpdateOperationsInput | string
     isRegisteredToCanteen?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17002,6 +17103,7 @@ export namespace Prisma {
     gender?: StringFieldUpdateOperationsInput | string
     matricule?: StringFieldUpdateOperationsInput | string
     isRegisteredToCanteen?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17010,6 +17112,7 @@ export namespace Prisma {
     id?: string
     matriculeHashe: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     notifications?: NotificationCreateNestedManyWithoutCanteenStudentInput
@@ -17024,6 +17127,7 @@ export namespace Prisma {
     matriculeHashe: string
     parentId: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     notifications?: NotificationUncheckedCreateNestedManyWithoutCanteenStudentInput
@@ -17050,6 +17154,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     notifications?: NotificationUpdateManyWithoutCanteenStudentNestedInput
@@ -17064,6 +17169,7 @@ export namespace Prisma {
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     parentId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     notifications?: NotificationUncheckedUpdateManyWithoutCanteenStudentNestedInput
@@ -17074,6 +17180,7 @@ export namespace Prisma {
     id?: string
     matriculeHashe: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     abonnements?: AbonnementCreateNestedManyWithoutCanteenStudentInput
@@ -17088,6 +17195,7 @@ export namespace Prisma {
     matriculeHashe: string
     parentId: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     abonnements?: AbonnementUncheckedCreateNestedManyWithoutCanteenStudentInput
@@ -17114,6 +17222,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     abonnements?: AbonnementUpdateManyWithoutCanteenStudentNestedInput
@@ -17128,6 +17237,7 @@ export namespace Prisma {
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     parentId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     abonnements?: AbonnementUncheckedUpdateManyWithoutCanteenStudentNestedInput
@@ -17138,6 +17248,7 @@ export namespace Prisma {
     id?: string
     matriculeHashe: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     abonnements?: AbonnementCreateNestedManyWithoutCanteenStudentInput
@@ -17152,6 +17263,7 @@ export namespace Prisma {
     matriculeHashe: string
     parentId: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     abonnements?: AbonnementUncheckedCreateNestedManyWithoutCanteenStudentInput
@@ -17178,6 +17290,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     abonnements?: AbonnementUpdateManyWithoutCanteenStudentNestedInput
@@ -17192,6 +17305,7 @@ export namespace Prisma {
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     parentId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     abonnements?: AbonnementUncheckedUpdateManyWithoutCanteenStudentNestedInput
@@ -17206,6 +17320,7 @@ export namespace Prisma {
     name: string
     searchableName?: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     emailVerified: boolean
@@ -17222,6 +17337,7 @@ export namespace Prisma {
     name: string
     searchableName?: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     emailVerified: boolean
@@ -17254,6 +17370,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     searchableName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -17270,6 +17387,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     searchableName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -17286,6 +17404,7 @@ export namespace Prisma {
     name: string
     searchableName?: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     emailVerified: boolean
@@ -17302,6 +17421,7 @@ export namespace Prisma {
     name: string
     searchableName?: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     emailVerified: boolean
@@ -17334,6 +17454,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     searchableName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -17350,6 +17471,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     searchableName?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -17463,6 +17585,7 @@ export namespace Prisma {
     enrolledStudentId: string
     matriculeHashe: string
     isActive?: boolean
+    slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17471,6 +17594,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     abonnements?: AbonnementUpdateManyWithoutCanteenStudentNestedInput
@@ -17484,6 +17608,7 @@ export namespace Prisma {
     enrolledStudentId?: StringFieldUpdateOperationsInput | string
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     abonnements?: AbonnementUncheckedUpdateManyWithoutCanteenStudentNestedInput
@@ -17496,6 +17621,7 @@ export namespace Prisma {
     enrolledStudentId?: StringFieldUpdateOperationsInput | string
     matriculeHashe?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

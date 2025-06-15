@@ -28,8 +28,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@workspace/ui/components/sidebar";
+import { authClient } from "database/auth-client";
 import Link from "next/link";
-// import { useLogoutMutation } from "@/hooks/use-auth-user";
+import { useRouter } from "next/navigation";
 
 export function NavUser({
   user,
@@ -41,11 +42,18 @@ export function NavUser({
     role?: string;
   };
 }) {
+  const router = useRouter();
   const { isMobile } = useSidebar();
-  // const logoutMutation = useLogoutMutation();
-  // const handleLogout = () => {
-  //   logoutMutation.mutate();
-  // };
+  const { signOut } = authClient;
+  const handleLogout = async () => {
+    await signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/login");
+        },
+      },
+    });
+  };
   const avatarFallback = user.name
     .split(" ")
     .map((name) => name[0])
@@ -111,9 +119,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-            //  onClick={handleLogout}
-             >
+            <DropdownMenuItem onClick={handleLogout}>
               <IconLogout />
               Se deconnecter
             </DropdownMenuItem>

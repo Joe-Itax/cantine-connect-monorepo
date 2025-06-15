@@ -151,9 +151,9 @@ const columns: ColumnDef<User>[] = [
         variant="outline"
         className={cn(
           "capitalize",
-          row.original.role === "admin" && "bg-green-400",
-          row.original.role === "agent" && "bg-blue-300",
-          row.original.role === "parent" && "bg-white/10"
+          row.original.role === "ADMIN" && "bg-green-400",
+          row.original.role === "AGENT" && "bg-blue-300",
+          row.original.role === "PARENT" && "bg-white/10"
         )}
       >
         {row.original.role}
@@ -255,7 +255,7 @@ export default function UsersDataTable() {
   });
 
   // Filtres pour le rôle
-  const roleOptions = useMemo(() => ["admin", "parent", "agent"], []);
+  const roleOptions = useMemo(() => ["ADMIN", "AGENT", "PARENT"], []);
 
   const selectedRoles = useMemo(() => {
     const filterValue = table.getColumn("role")?.getFilterValue() as string[];

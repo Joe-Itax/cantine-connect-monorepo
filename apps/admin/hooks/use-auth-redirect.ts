@@ -18,6 +18,10 @@ export function useAuthRedirect({
   useEffect(() => {
     if (isPending) return;
 
+    // if (user && user.role !== "ADMIN") {
+    //   router.replace("/login");
+    // }
+
     if (user && ifAuthenticated) {
       router.replace(ifAuthenticated);
     }
