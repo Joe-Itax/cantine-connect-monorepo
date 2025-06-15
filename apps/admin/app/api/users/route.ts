@@ -1,12 +1,16 @@
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "database";
-import { requireRole } from "@/lib/middlewares/require-role";
-import { emailValid, passwordValid, validRoles } from "@/lib/constants";
-import { hashValue } from "@/utils/hash";
-import { removeAccents } from "@/utils/remove-accents";
-import { paginationQuery } from "@/utils/pagination";
 import { auth } from "database";
-import { generateUniqueSlug } from "@/utils/generate-unique-slug";
+import { requireRole } from "@/lib/middlewares/require-role";
+import {
+  emailValid,
+  passwordValid,
+  validRoles,
+} from "@workspace/ui/lib/constants";
+import { removeAccents } from "@workspace/ui/lib/remove-accents";
+import { paginationQuery } from "@workspace/ui/lib/pagination";
+
+import { generateUniqueSlug } from "@workspace/ui/lib/generate-unique-slug";
 
 /**
  * GET /api/users

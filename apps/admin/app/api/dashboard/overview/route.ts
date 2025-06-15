@@ -1,13 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "database";
-// import { requireRole } from "@/lib/middlewares/require-role";
 
 export async function GET(req: NextRequest) {
-//   const roleCheckResult = await requireRole("ADMIN");
-//   if (roleCheckResult) {
-//     return roleCheckResult;
-//   }
-
   try {
     const now = new Date();
     const startOfMonth = new Date(

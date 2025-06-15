@@ -1,5 +1,5 @@
 import { requireRole } from "@/lib/middlewares/require-role";
-import { removeAccents } from "@/utils/remove-accents";
+import { removeAccents } from "@workspace/ui/lib/remove-accents";
 import { prisma } from "database";
 import { NextRequest, NextResponse } from "next/server";
 const protectedAccounts = process.env.PROTECTED_ACCOUNTS?.split(",") || [];

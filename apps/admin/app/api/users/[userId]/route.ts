@@ -1,9 +1,13 @@
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "database";
 import { requireRole } from "@/lib/middlewares/require-role";
-import { emailValid, passwordValid, validRoles } from "@/lib/constants"; // Tes constantes
-import { hashValue } from "@/utils/hash";
-import { removeAccents } from "@/utils/remove-accents";
+import {
+  emailValid,
+  passwordValid,
+  validRoles,
+} from "@workspace/ui/lib/constants";
+import { hashValue } from "@workspace/ui/lib/hash";
+import { removeAccents } from "@workspace/ui/lib/remove-accents";
 import { deleteFileFromVercelBlob } from "@/lib/middlewares/upload-file";
 
 export const dynamic = "force-dynamic";

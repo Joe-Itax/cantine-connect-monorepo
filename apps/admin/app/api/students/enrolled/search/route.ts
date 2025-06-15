@@ -1,10 +1,8 @@
-// apps/admin/app/api/students/enrolled/search/route.ts
-
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "database";
 import { requireRole } from "@/lib/middlewares/require-role";
-import { paginationQuery } from "@/utils/pagination";
-import { removeAccents } from "@/utils/remove-accents";
+import { paginationQuery } from "@workspace/ui/lib/pagination";
+import { removeAccents } from "@workspace/ui/lib/remove-accents";
 
 /**
  * GET /api/students/enrolled/search

@@ -1,11 +1,9 @@
-// apps/admin/app/api/students/canteen/route.ts
-
 import { NextResponse, NextRequest } from "next/server";
-import { prisma } from "database"; // Assure-toi du chemin correct
+import { prisma } from "database";
 import { requireRole } from "@/lib/middlewares/require-role";
-import { hashValue } from "@/utils/hash";
-import { paginationQuery } from "@/utils/pagination";
-import { generateUniqueSlug } from "@/utils/generate-unique-slug";
+import { hashValue } from "@workspace/ui/lib/hash";
+import { paginationQuery } from "@workspace/ui/lib/pagination";
+import { generateUniqueSlug } from "@workspace/ui/lib/generate-unique-slug";
 
 /**
  * GET /api/students/canteen

@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
-import { prisma } from "database"; // Assure-toi du chemin correct
+import { prisma } from "database";
 import { requireRole } from "@/lib/middlewares/require-role";
-import { removeAccents } from "@/utils/remove-accents";
+import { removeAccents } from "@workspace/ui/lib/remove-accents";
 
 export const dynamic = "force-dynamic";
 

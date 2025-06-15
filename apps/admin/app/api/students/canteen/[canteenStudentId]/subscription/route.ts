@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "database";
 import { requireRole } from "@/lib/middlewares/require-role";
-import { pricing } from "@/lib/pricing";
+import { pricing } from "@workspace/ui/lib/pricing";
 
 export const dynamic = "force-dynamic";
 

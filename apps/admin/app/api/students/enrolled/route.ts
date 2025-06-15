@@ -1,9 +1,7 @@
-// apps/admin/app/api/students/enrolled/route.ts
-
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "database";
 import { requireRole } from "@/lib/middlewares/require-role";
-import { paginationQuery } from "@/utils/pagination";
+import { paginationQuery } from "@workspace/ui/lib/pagination";
 
 /**
  * GET /api/students/enrolled
