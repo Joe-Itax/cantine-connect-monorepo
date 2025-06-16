@@ -1,7 +1,7 @@
 import { prisma } from "database";
 import { faker } from "@faker-js/faker";
-import { generateUniqueSlug } from "@/utils/generate-unique-slug";
-import { removeAccents } from "@/utils/remove-accents";
+import { generateUniqueSlug } from "@workspace/ui/lib/generate-unique-slug";
+import { removeAccents } from "@workspace/ui/lib/remove-accents";
 
 const classes = [
   "1A",
