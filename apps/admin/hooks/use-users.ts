@@ -1,4 +1,10 @@
-import { useQuery, useMutation, useQueryClient, UseQueryResult, UseMutationResult } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  UseQueryResult,
+  UseMutationResult,
+} from "@tanstack/react-query";
 import { User } from "@workspace/ui/types/user";
 import { useNotification } from "@workspace/ui/hooks/use-notification";
 import { useState } from "react";
@@ -86,12 +92,9 @@ export function useUserQuery(userId: string): UseQueryResult<User, Error> {
     queryKey: ["user", userId],
     queryFn: async () => {
       try {
-        const res = await fetch(
-          `/api/users/${userId}`,
-          {
-            credentials: "include",
-          }
-        );
+        const res = await fetch(`/api/users/${userId}`, {
+          credentials: "include",
+        });
         if (!res.ok) throw new Error("Erreur lors du fetch de l'utilisateur");
         const data = await res.json();
 
@@ -142,39 +145,6 @@ export function useAddUserMutation(): UseMutationResult<
   });
 }
 
-// Supprimer un user
-// export function useDeleteUserMutation() {
-//   const { show } = useNotification();
-//   const queryClient = useQueryClient();
-
-//   return useMutation({
-//     mutationFn: async (userIds: string[]) => {
-//       const res = await fetch(`/api/users`, {
-//         method: "DELETE",
-//         credentials: "include",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ userIds }),
-//       });
-
-//       const data = await res.json();
-//       if (!res.ok)
-//         throw new Error(data.message || "Erreur lors de la suppression");
-//       return data;
-//     },
-//     onSuccess: (data) => {
-//       show("success", data.message || "Utilisateur supprimé avec succès");
-//       queryClient.invalidateQueries({ queryKey: ["users"] });
-//     },
-//     onError: (error) => {
-//       show(
-//         "error",
-//         error.message || "Erreur lors de la suppression de l'utilisateur"
-//       );
-//     },
-//   });
-// }
 // Désactiver un ou plusieurs utilisateurs
 export function useDeactivateUserMutation() {
   const { show } = useNotification();
@@ -253,10 +223,9 @@ export function useSearchUsersMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (query: string) => {
-      const res = await fetch(
-        `/api/users/search?query=${query}`,
-        { credentials: "include" }
-      );
+      const res = await fetch(`/api/users/search?query=${query}`, {
+        credentials: "include",
+      });
       const data = await res.json();
       if (!res.ok)
         throw new Error(
@@ -279,17 +248,14 @@ export function useUpdateUserMutation() {
   return useMutation({
     mutationFn: async (user: Partial<User>) => {
       const { id, ...payload } = user;
-      const res = await fetch(
-        `/api/users/${id}`,
-        {
-          method: "PUT",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const res = await fetch(`/api/users/${id}`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
       if (!res.ok) throw new Error("Erreur lors de la mise à jour");
       return res.json();
     },

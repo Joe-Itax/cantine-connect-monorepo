@@ -58,6 +58,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@workspace/ui/components/popover";
+import { Spinner } from "@workspace/ui/components/spinner";
 import {
   Table,
   TableBody,
@@ -72,6 +73,7 @@ import {
   useUsersQuery,
   useSearchUsersMutation,
   useDeleteUserMutation,
+  useDeactivateUserMutation,
 } from "@/hooks/use-users";
 import LoadingDataTable from "./loading";
 import ErrorThenRefresh from "./error";
@@ -101,23 +103,59 @@ import AddUser from "../users/add-user";
 const columns: ColumnDef<User>[] = [
   {
     id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
+    header: ({ table }) => {
+      // Déterminer le nombre de lignes actives sélectionnables
+      const activeRows = table
+        .getRowModel()
+        .rows.filter((row) => row.original.isActive);
+      const allActiveRowsSelected =
+        activeRows.length > 0 && activeRows.every((row) => row.getIsSelected());
+      const someActiveRowsSelected = activeRows.some((row) =>
+        row.getIsSelected()
+      );
+
+      // Déterminer l'état de la checkbox du header
+      let headerCheckedState: boolean | "indeterminate";
+      if (allActiveRowsSelected) {
+        headerCheckedState = true;
+      } else if (someActiveRowsSelected) {
+        headerCheckedState = "indeterminate";
+      } else {
+        headerCheckedState = false;
+      }
+
+      return (
+        <Checkbox
+          checked={headerCheckedState}
+          onCheckedChange={(value) => {
+            if (value === true) {
+              // Si l'utilisateur coche la case "Select All"
+              // Nous sélectionnons uniquement les lignes actives
+              activeRows.forEach((row) => {
+                row.toggleSelected(true);
+              });
+            } else if (value === false) {
+              // Si l'utilisateur décoche la case "Select All"
+              // Nous désélectionnons TOUTES les lignes (y compris celles qui étaient actives)
+              table.toggleAllPageRowsSelected(false);
+            } else if (value === "indeterminate") {
+              activeRows.forEach((row) => {
+                row.toggleSelected(true);
+              });
+            }
+          }}
+          aria-label="Select all"
+        />
+      );
+    },
+    cell: ({ row }) =>
+      row.original.isActive ? (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ) : null,
     size: 28,
     enableSorting: false,
     enableHiding: false,
@@ -292,6 +330,25 @@ export default function UsersDataTable() {
     return <ErrorThenRefresh />;
   }
 
+  const deactivateUserMutation = useDeactivateUserMutation();
+
+  const handleDeactivateRows = async () => {
+    const selectedIds = table
+      .getSelectedRowModel()
+      .rows.map((row) => row.original.id);
+    if (selectedIds.length === 0) return;
+
+    try {
+      await deactivateUserMutation.mutateAsync(selectedIds);
+      table.resetRowSelection();
+    } catch (error) {
+      console.error(
+        "Erreur lors de la désactivation multiple des users.",
+        error
+      );
+    }
+  };
+
   return (
     <div className="space-y-4">
       {/* Filters */}
@@ -433,7 +490,7 @@ export default function UsersDataTable() {
                     size={16}
                     aria-hidden="true"
                   />
-                  Supprimer
+                  Désactiver
                   <span className="bg-background text-muted-foreground/70 -me-1 inline-flex h-5 max-h-full items-center rounded border px-1 font-[inherit] text-[0.625rem] font-medium">
                     {table.getSelectedRowModel().rows.length}
                   </span>
@@ -449,14 +506,14 @@ export default function UsersDataTable() {
                   </div>
                   <AlertDialogHeader>
                     <AlertDialogTitle>
-                      Etes-vous sûr de vouloir supprimer?
+                      Etes-vous sûr de vouloir les désactiver?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
-                      Cette action ne peut pas être annulée. Cela supprimera
-                      définitivement {table.getSelectedRowModel().rows.length}{" "}
+                      Cette action désactivera temporairement{" "}
+                      {table.getSelectedRowModel().rows.length}{" "}
                       {table.getSelectedRowModel().rows.length === 1
-                        ? "élève"
-                        : "élèves"}{" "}
+                        ? "utilisateur"
+                        : "utilisateurs"}{" "}
                       {table.getSelectedRowModel().rows.length === 1
                         ? "sélectionné"
                         : "sélectionnés"}
@@ -466,11 +523,15 @@ export default function UsersDataTable() {
                 </div>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Annuler</AlertDialogCancel>
-                  <AlertDialogAction
-                  //   onClick={handleDeleteRows}
+                  <Button
+                    onClick={handleDeactivateRows}
+                    disabled={deactivateUserMutation.isPending}
                   >
-                    Supprimer
-                  </AlertDialogAction>
+                    {deactivateUserMutation.isPending
+                      ? "En cours"
+                      : "Désactiver"}
+                    {deactivateUserMutation.isPending && <Spinner />}
+                  </Button>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
@@ -688,12 +749,12 @@ export default function UsersDataTable() {
 }
 
 function RowActions({ row }: { row: Row<User> }) {
-  const deleteUsersMutation = useDeleteUserMutation();
+  const deactiveUsersMutation = useDeactivateUserMutation();
   const router = useRouter();
 
   const handleDeleteUsers = async () => {
     try {
-      await deleteUsersMutation.mutateAsync([row.original.id]);
+      await deactiveUsersMutation.mutateAsync([row.original.id]);
     } catch (error) {
       console.error("Erreur lors de la suppression des utilisateurs:", error);
     }
@@ -723,7 +784,7 @@ function RowActions({ row }: { row: Row<User> }) {
             <span>Voir les détails</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
-        {row.original.isActive && (
+        {row.original.isActive ? (
           <>
             <DropdownMenuSeparator />
             <AlertDialog>
@@ -732,25 +793,60 @@ function RowActions({ row }: { row: Row<User> }) {
                   className="text-destructive focus:text-destructive"
                   onSelect={(e) => e.preventDefault()}
                 >
-                  <span>Supprimer l&apos;utilisateur</span>
+                  <span>Désactiver l&apos;utilisateur</span>
                 </DropdownMenuItem>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Confirmer la suppression</AlertDialogTitle>
+                  <AlertDialogTitle>
+                    Confirmer la désactivation
+                  </AlertDialogTitle>
                   <AlertDialogDescription>
-                    Êtes-vous sûr de vouloir supprimer{" "}
-                    {/* {row.original.enrolledStudent.name}  */}
-                    de la cantine ?
+                    Êtes-vous sûr de vouloir désactiver cet utilisateur de la
+                    cantine ?
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Annuler</AlertDialogCancel>
                   <AlertDialogAction
                     onClick={handleDeleteUsers}
-                    disabled={deleteUsersMutation.isPending}
+                    disabled={deactiveUsersMutation.isPending}
                   >
-                    {deleteUsersMutation.isPending
+                    {deactiveUsersMutation.isPending
+                      ? "En cours..."
+                      : "Confirmer"}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </>
+        ) : (
+          <>
+            <DropdownMenuSeparator />
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <DropdownMenuItem
+                  className="text-blue-500 focus:text-blue-500"
+                  onSelect={(e) => e.preventDefault()}
+                >
+                  <span>Réactiver l&apos;utilisateur</span>
+                </DropdownMenuItem>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Confirmer la réactivation</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Êtes-vous sûr de vouloir réactiver cet utilisateur à la
+                    cantine ?
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Annuler</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={handleDeleteUsers}
+                    disabled={deactiveUsersMutation.isPending}
+                  >
+                    {deactiveUsersMutation.isPending
                       ? "En cours..."
                       : "Confirmer"}
                   </AlertDialogAction>

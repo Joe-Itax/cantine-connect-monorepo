@@ -53,6 +53,41 @@ export async function DELETE(req: NextRequest) {
     const protectedUsers: unknown[] = [];
 
     await prisma.$transaction(async (tx) => {
+      if (userIds.length === 1) {
+        const user = await tx.user.findFirst({
+          where: {
+            id: userIds[0],
+          },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            isActive: true,
+          },
+        });
+        if (!user) {
+          return NextResponse.json(
+            {
+              message: `Aucun utilisateur actif trouvé avec l'identifiant fourni.`,
+            },
+            { status: 400 }
+          );
+        }
+
+        await tx.user.update({
+          where: { id: user.id },
+          data: { isActive: user.isActive === true ? false : true },
+        });
+
+        deactivatedUsers.push({
+          id: user.id,
+          name: user.name,
+          role: user.role,
+        });
+
+        return;
+      }
       for (const id of userIds) {
         const user = await tx.user.findFirst({
           where: {
