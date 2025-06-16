@@ -1,21 +1,23 @@
 import { CircleAlertIcon } from "lucide-react";
-import Spinner from "./spinner.js";
-import { Button } from "./button.js";
+import { Spinner } from "@workspace/ui/components/spinner";
+import { Button } from "@workspace/ui/components/button";
 
 interface dataStatusDisplayProps {
   isPending: boolean;
   hasError: boolean;
+  showContent?: boolean;
   errorObject?: Error | null;
-  refetch: () => void;
+  refetch?: () => void;
 }
 
 export default function DataStatusDisplay({
   isPending,
   hasError,
+  showContent,
   errorObject,
   refetch,
 }: dataStatusDisplayProps) {
-  if (isPending) {
+  if (isPending || !showContent) {
     return (
       <div className="w-full py-64 flex justify-center items-center">
         <div className="flex gap-4 items-center">
@@ -45,7 +47,10 @@ export default function DataStatusDisplay({
         <Button
           variant="outline"
           onClick={async () => {
-            await refetch();
+            if (refetch) await refetch();
+            else {
+              window.location.reload();
+            }
           }}
           className="mt-4"
         >

@@ -89,12 +89,16 @@ export const auth = betterAuth({
             select: { role: true },
           });
 
+          // console.log("User: ", user);
+
           if (!user || (user.role !== "AGENT" && user.role !== "PARENT")) {
+            // console.log("It's not PARENT or AGENT: ", user);
             throw new APIError("UNAUTHORIZED", {
               message: "Email ou mot de passe incorrect",
               code: "INVALID_EMAIL_OR_PASSWORD",
             });
           }
+          // console.log("It's PARENT or AGENT: ", user);
         }
       }
 

@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 import { DashboardStats } from "@workspace/ui/types/dashboard-stat";
-import { NumberTicker } from "./magicui/number-ticker";
+import { NumberTicker } from "@workspace/ui/components/number-ticker";
 
 export function SectionCards({ stats }: { stats: DashboardStats }) {
   return (
