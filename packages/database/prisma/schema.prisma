@@ -178,3 +178,12 @@ model Verification {
 
   @@map("verification")
 }
+
+model ContactMessage {
+  id        String    @id @default(uuid())
+  name      String
+  email     String
+  message   String    @db.Text
+  createdAt DateTime  @default(now())
+  isRead    Boolean   @default(false)
+}

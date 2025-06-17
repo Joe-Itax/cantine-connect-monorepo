@@ -4,17 +4,22 @@ import { LinkIcon } from "lucide-react";
 interface LogoProps {
   className?: string;
   classNameTxt?: string;
+  classNameIcon?: string;
 }
 
-export default function Logo({ className, classNameTxt }: LogoProps) {
+export default function Logo({
+  className,
+  classNameTxt,
+  classNameIcon,
+}: LogoProps) {
   return (
     <Link
       href="/"
       className={`logo-cantine-connect select-none text-xl font-extrabold flex justify-center items-center gap-1 text-inherit ${className}`}
     >
-      <LinkIcon className="size-8 text-inherit font-bold" />
+      <LinkIcon className={`size-8 text-inherit font-bold ${classNameIcon}`} />
       <span className={`text-xl font-bold text-inherit ${classNameTxt}`}>
-        Cantine Connect
+        CantineConnect
       </span>
     </Link>
   );

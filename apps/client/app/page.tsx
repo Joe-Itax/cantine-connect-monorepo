@@ -9,6 +9,8 @@ import { pricing } from "@workspace/ui/lib/pricing";
 import { NumberTicker } from "@workspace/ui/components/number-ticker";
 import PriceCard from "./components/price-card";
 import { authClient } from "database/auth-client";
+import Footer from "./components/footer/footer";
+import ContactSection from "./components/contact-section";
 
 export default function Home() {
   const { data: session } = authClient.useSession();
@@ -65,7 +67,6 @@ export default function Home() {
             />
           </div>
         </section>
-
         {/* Stats Section - Adaptées aux données de cantine */}
         <section className="py-10 bg-gray-50">
           <div className="container mx-auto px-4 flex justify-between flex-wrap gap-y-4">
@@ -93,7 +94,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
         {/* Features Section */}
         <section id="fonctionnalities" className="py-16 pt-24 bg-amber-50">
           <div className="container mx-auto px-4">
@@ -190,7 +190,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
         {/* How It Works Section */}
         <section id="howitwork" className="py-16 pt-24">
           <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
@@ -258,7 +257,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
         {/* Pricing Section */}
         <section id="pricing" className="py-16 pt-24 bg-blue-50">
           <div className="container mx-auto px-4">
@@ -289,7 +287,6 @@ export default function Home() {
             </p>
           </div>
         </section>
-
         {/* Testimonials Section */}
         <section className="py-16 pt-24 bg-white">
           <div className="container mx-auto px-4">
@@ -339,183 +336,11 @@ export default function Home() {
             </div>
           </div>
         </section>
-
         {/* Contact Section */}
-        <section id="contact" className="py-16 pt-24 bg-gray-100">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              Des questions ? Contactez l'administration de l'école !
-            </h2>
-            <p className="text-gray-600 mb-8 max-w-xl mx-auto">
-              Pour toute demande concernant l'inscription de votre enfant à la
-              cantine, la gestion de son compte ou d'autres questions
-              spécifiques, veuillez vous adresser directement à l'administration
-              de l'école.
-            </p>
-            {/* Vous pouvez laisser ce formulaire si c'est pour des "questions générales sur l'application" */}
-            <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold mb-4">
-                Contactez-nous (pour des questions générales)
-              </h3>
-              <form className="space-y-4">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-left text-gray-700 text-sm font-bold mb-2"
-                  >
-                    Nom
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Votre nom"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-left text-gray-700 text-sm font-bold mb-2"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Votre email"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-left text-gray-700 text-sm font-bold mb-2"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    required
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Votre message"
-                  ></textarea>
-                </div>
-                <Button type="submit" className="w-full">
-                  Envoyer le message
-                </Button>
-              </form>
-            </div>
-            <p className="text-center text-gray-600 mt-4">
-              Pour des questions urgentes, veuillez consulter les horaires de
-              bureau de l'école.
-            </p>
-          </div>
-        </section>
+        <ContactSection />
 
         {/* Footer */}
-        <footer className="bg-purple-600 text-white py-12">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-purple-600 font-bold">
-                    CC
-                  </div>
-                  <span className="font-medium">CantineConnect</span>
-                </div>
-                <p className="mb-4">
-                  Votre partenaire digital pour une cantine scolaire moderne et
-                  efficace.
-                </p>
-                <div className="flex space-x-3">
-                  <a
-                    href="#"
-                    className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center"
-                  >
-                    f {/* Icône Facebook */}
-                  </a>
-                  <a
-                    href="#"
-                    className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center"
-                  >
-                    t {/* Icône Twitter */}
-                  </a>
-                  <a
-                    href="#"
-                    className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center"
-                  >
-                    in {/* Icône LinkedIn */}
-                  </a>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="font-bold mb-4">CantineConnect</h3>
-                <ul className="space-y-2">
-                  <li>
-                    <a href="#">À Propos de Nous</a>
-                  </li>
-                  <li>
-                    <a href="#">Le Projet TFC</a>{" "}
-                    {/* Mentionner le cadre du projet */}
-                  </li>
-                  <li>
-                    <a href="#">Témoignages</a>
-                  </li>
-                  <li>
-                    <a href="#">Notre Vision</a>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-bold mb-4">Aide et Support</h3>
-                <ul className="space-y-2">
-                  <li>
-                    <a href="#">FAQ Parents</a>
-                  </li>
-                  <li>
-                    <a href="#">FAQ Admin</a>
-                  </li>
-                  <li>
-                    <a href="#">Confidentialité</a>
-                  </li>
-                  <li>
-                    <a href="#">Conditions d'Utilisation</a>
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-bold mb-4">Restons en Contact</h3>
-                <p className="mb-2">Suivez nos mises à jour</p>
-                <div className="flex">
-                  <input
-                    type="email"
-                    placeholder="Votre email"
-                    className="px-3 py-2 rounded-l-md text-gray-800 w-full"
-                  />
-                  <button className="bg-orange-500 text-white px-4 py-2 rounded-r-md">
-                    →
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="border-t border-purple-500 mt-8 pt-8 text-center">
-              <p>
-                Projet de Fin de Cycle (TFC) - Copyright © 2023 -
-                CantineConnect. Tous droits réservés.
-              </p>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </main>
     </>
   );
