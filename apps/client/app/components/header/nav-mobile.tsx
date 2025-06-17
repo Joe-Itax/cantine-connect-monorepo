@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { MenuIcon } from "lucide-react";
+import { authClient } from "database/auth-client";
 
 import {
   Sheet,
@@ -12,9 +14,10 @@ import {
 
 import Logo from "@/components/logo";
 import navItems from "./nav-items";
-import Link from "next/link";
 
 export default function NavMobile({ className }: { className?: string }) {
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
   const [open, setOpen] = useState(false);
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -26,7 +29,7 @@ export default function NavMobile({ className }: { className?: string }) {
       </SheetTrigger>
       <SheetContent className={`${className} w-[300px] max-[300px]:w-full`}>
         <SheetHeader onClick={() => setOpen(false)}>
-          <Logo />
+          <Logo className="text-secondary" />
         </SheetHeader>
         <nav className="grid gap-4 py-4">
           <ul className="flex flex-col">
@@ -37,9 +40,7 @@ export default function NavMobile({ className }: { className?: string }) {
                     key={label}
                     href={path}
                     onClick={() => setOpen(false)}
-                    className={`block w-full px-3 py-2 font-semibold text-sm rounded-md hover:bg-primary hover:text-primary-foreground transition-colors ${
-                      true ? "bg-primary text-primary-foreground" : ""
-                    }`}
+                    className={`block w-full px-3 py-2 font-semibold text-sm rounded-md hover:bg-primary hover:text-primary-foreground transition-colors `}
                   >
                     {label}
                   </Link>
@@ -53,6 +54,15 @@ export default function NavMobile({ className }: { className?: string }) {
                   </span>
                 )
               )}
+            </li>
+            <li className="px-3">
+              <Link
+                href={`${user?.role === "PARENT" ? "/parent" : user?.role === "AGENT" ? "/agent" : "/auth/login"}`}
+                onClick={() => setOpen(false)}
+                className={`block w-full px-3 py-2 font-semibold text-sm rounded-md hover:bg-primary hover:text-primary-foreground transition-colors `}
+              >
+                {!user ? "Se connecter" : "Accéder à Cantine Connect"}
+              </Link>
             </li>
           </ul>
         </nav>
