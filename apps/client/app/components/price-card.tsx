@@ -19,22 +19,18 @@ export default function PriceCard({ pricing, isPopular }: priceCardProps) {
   const isParentConnected = user?.role === "PARENT";
   return (
     <div
-      className={`rounded-lg overflow-hidden shadow-md hover:shadow-lg p-6 text-center grid ${isPopular ? "bg-secondary text-black border-2 border-primary" : "bg-white"}`}
+      className={`rounded-lg overflow-hidden shadow-sm transition hover:shadow-lg p-6 text-center grid md:hover:scale-105 hover:scale-105 z-20 ${isPopular ? "bg-secondary border-2 border-primary" : "bg-white"}`}
     >
       {isPopular && (
-        <p className="text-sm text-black font-semibold mb-2">
-          Le plus populaire !
-        </p>
+        <p className="text-sm  font-semibold mb-2">Le plus populaire !</p>
       )}
-      <h3
-        className={`font-bold text-2xl mb-2 ${isPopular ? "text-black" : ""}`}
-      >
+      <h3 className={`font-bold text-2xl mb-2 ${isPopular ? "" : ""}`}>
         Abonnement {pricing.type === "daily" && "Journalier"}
         {pricing.type === "short" && "Court"}
         {pricing.type === "weekly" && "Hebdomadaire"}
         {pricing.type === "monthly" && "Mensuel"}
       </h3>
-      <p className={`mb-4  ${isPopular ? "text-black" : "text-gray-600"}`}>
+      <p className={`mb-4  ${isPopular ? "" : "text-gray-600"}`}>
         {pricing.type === "daily" && "Pour un repas ponctuel"}
         {pricing.type === "short" && "Quelques jours de repas"}
         {pricing.type === "weekly" && "Pour une semaine complète"}
@@ -61,7 +57,7 @@ export default function PriceCard({ pricing, isPopular }: priceCardProps) {
         </div>
       </div>
       <ul
-        className={`space-y-2 mb-6 text-left pl-4 ${isPopular ? "text-black" : "text-gray-700"}`}
+        className={`space-y-2 mb-6 text-left pl-4 ${isPopular ? "" : "text-gray-700"}`}
       >
         {pricing.type === "daily" && (
           <>

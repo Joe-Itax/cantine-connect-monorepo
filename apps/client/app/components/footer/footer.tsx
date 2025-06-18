@@ -4,31 +4,27 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-purple-600 text-white py-12">
+    <footer className="bg-primary text-white py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              {/* <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-purple-600 font-bold">
-                CC
-              </div>
-              <span className="font-medium">CantineConnect</span> */}
-              <Logo className="text-secondary" classNameIcon="text-white" />
+              <Logo className="text-secondary" />
             </div>
-            <p className="mb-4">
+            <p className="mb-4 text-primary-foreground">
               Votre partenaire digital pour une cantine scolaire moderne et
               efficace.
             </p>
             <div className="flex space-x-3">
               <Link
                 href=""
-                className="p-3 rounded-full bg-purple-500 hover:bg-purple-400 transition flex items-center justify-center"
+                className="p-3 rounded-full bg-secondary hover:bg-secondary/90 transition flex items-center justify-center"
               >
                 <FacebookIcon />
               </Link>
               <Link
                 href=""
-                className="p-3 rounded-full bg-purple-500 hover:bg-purple-400 transition flex items-center justify-center"
+                className="p-3 rounded-full bg-secondary hover:bg-secondary/90 transition flex items-center justify-center"
               >
                 <LinkedinIcon />
               </Link>
@@ -36,33 +32,37 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-bold mb-4">CantineConnect</h3>
+            <h3 className="font-bold mb-4 text-secondary pt-1">
+              Cantine Connect
+            </h3>
             <ul className="space-y-2">
-              <li>
+              <li className="text-primary-foreground">
                 <Link href="">À Propos de Nous</Link>
               </li>
               {/* <li>
                 <Link href="">Le Projet TFC</Link>
               </li> */}
-              <li>
+              <li className="text-primary-foreground">
                 <Link href="">Témoignages</Link>
               </li>
-              <li>
+              <li className="text-primary-foreground">
                 <Link href="">Notre Vision</Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-bold mb-4">Aide et Support</h3>
+            <h3 className="font-bold mb-4 text-secondary pt-1">
+              Aide et Support
+            </h3>
             <ul className="space-y-2">
-              <li>
+              <li className="text-primary-foreground">
                 <Link href="">FAQ</Link>
               </li>
-              <li>
+              <li className="text-primary-foreground">
                 <Link href="">Confidentialité</Link>
               </li>
-              <li>
+              <li className="text-primary-foreground">
                 <Link href="">Conditions d'Utilisation</Link>
               </li>
             </ul>
@@ -84,8 +84,8 @@ export default function Footer() {
               </div> */}
         </div>
 
-        <div className="border-t border-purple-500 mt-8 pt-8 text-center">
-          <p>
+        <div className="border-t border-secondary mt-8 pt-8 text-center">
+          <p className="text-primary-foreground">
             Copyright &copy; {new Date().getFullYear()} - CantineConnect. Tous
             droits réservés.
           </p>

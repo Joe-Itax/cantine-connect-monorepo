@@ -26,24 +26,24 @@ export default function Home() {
           className="bg-secondary text-white sm:py-40 py-20 relative sm:px-20 px-2 flex w-full"
         >
           <div className="mx-auto px-4 flex flex-col gap-4 md:w-2/3 w-full">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold max-w-xl mb-8 leading-tight text-white">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold max-w-xl mb-8 leading-tight text-primary-foreground">
               CantineConnect : La solution numérique pour la cantine de votre
               école
             </h1>
-            <p className="text-lg mb-8 max-w-2xl">
+            <p className="text-lg mb-8 max-w-2xl text-primary-foreground">
               Simplifiez l'inscription, la gestion des abonnements et le service
               des repas pour les parents, l'administration scolaire et l'équipe
               de cantine.
             </p>
-            <Button className="w-fit" size={"lg"}>
-              <Link
-                href={`${user?.role === "PARENT" ? "/parent" : user?.role === "AGENT" ? "/agent" : "/auth/login"}`}
-                passHref
-                className="w-full"
-              >
-                {user ? "Accèder à CantineConnect" : "Se connecter"}
-              </Link>
-            </Button>
+            <Link
+              href={`${user?.role === "PARENT" ? "/parent" : user?.role === "AGENT" ? "/agent" : "/auth/login"}`}
+              passHref
+              className="w-fit"
+            >
+              <Button className="" size={"lg"}>
+                {user ? "Accèder à mon espace" : "Se connecter"}
+              </Button>
+            </Link>
           </div>
           <div className="hidden md:flex w-1/3"></div>
 
@@ -250,8 +250,8 @@ export default function Home() {
                 href={`${user?.role === "PARENT" ? "/parent" : user?.role === "AGENT" ? "/agent" : "/auth/login"}`}
                 passHref
               >
-                <Button className="bg-orange-500 text-white px-6 py-3 rounded-md font-medium hover:bg-orange-600">
-                  Accéder à CantineConnect
+                <Button>
+                  {`${user?.role === "PARENT" || user?.role === "AGENT" ? "Accéder à mon espace" : "Se connecter"}`}
                 </Button>
               </Link>
             </div>
@@ -268,7 +268,7 @@ export default function Home() {
               de votre enfant pour la cantine.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
               {/* Abonnement 1 jour */}
               <PriceCard pricing={pricing[1]} />
 
