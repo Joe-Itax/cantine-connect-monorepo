@@ -22,11 +22,8 @@ export default function Header() {
           passHref
           className="hidden lg:flex"
         >
-          <Button
-            variant="outline"
-            // className="text-white border-white hover:bg-white hover:text-secondary-dark px-4 py-2 rounded-md transition-colors"
-          >
-            {user ? "Accèder à CantineConnect" : "Se connecter"}
+          <Button variant="outline">
+            {user ? "Accèder à mon espace" : "Se connecter"}
           </Button>
         </Link>
       </div>

@@ -74,3 +74,5 @@ async function createParents(count = 3) {
 }
 
 createParents();
+
+// pnpm tsx .\scripts\seed-admins.ts

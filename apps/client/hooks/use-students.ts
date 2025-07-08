@@ -25,6 +25,8 @@ interface GetCanteenStudentsResponse {
   data: CanteenStudent[];
 }
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 // === ENROLLED STUDENTS ===
 export function useEnrolledStudentsQuery(): UseQueryResult<
   EnrolledStudent[],
@@ -417,14 +419,25 @@ export function useScanQRCodeMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (matriculeHashe: string) => {
-      const res = await fetch(`/api/students/canteen/scan`, {
+      const res = await fetch(`${API_BASE_URL}/api/students/canteen/scan`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ matriculeHashe }),
         credentials: "include",
       });
-      if (!res.ok) throw new Error("Erreur scan QR Code");
-      return res.json();
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        const errorDetail = result.message || "Erreur inconnue lors du scan.";
+        const studentName = result.studentName;
+
+        const customError = new Error(errorDetail);
+        (customError as any).studentName = studentName;
+        throw customError;
+      }
+
+      return result;
     },
     onSuccess: () => {
       show("success", "Repas pris avec succès.");

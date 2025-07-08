@@ -122,7 +122,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50 text-primary;
+    @apply border-border outline-ring/50 text-primary relative;
   }
   body {
     @apply bg-background;

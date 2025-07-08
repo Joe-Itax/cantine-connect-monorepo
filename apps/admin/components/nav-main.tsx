@@ -43,8 +43,25 @@ export function NavMain({
                       : "noo-active"
                   } `}
                 >
-                  {item.icon && <item.icon />}
-                  <span>{item.title}</span>
+                  {item.icon && (
+                    <item.icon
+                      color={`${pathname === item.url ? "#fff" : "#000"} `}
+                      className={`${
+                        pathname === item.url
+                          ? "bg-primary hover:bg-primary/90 text-primary-foreground hover:text-primary-foreground link-active"
+                          : "noo-active"
+                      } `}
+                    />
+                  )}
+                  <span
+                    className={`${
+                      pathname === item.url
+                        ? "bg-primary hover:bg-primary/90 text-primary-foreground hover:text-primary-foreground link-active"
+                        : "noo-active"
+                    } `}
+                  >
+                    {item.title}
+                  </span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </Link>

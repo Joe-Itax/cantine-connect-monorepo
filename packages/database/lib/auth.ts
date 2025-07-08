@@ -11,6 +11,7 @@ export const auth = betterAuth({
     enabled: true,
     autoSignIn: false,
   },
+  trustedOrigins: ["http://localhost:3001", "http://localhost:3000"],
   user: {
     additionalFields: {
       role: {

@@ -36,6 +36,14 @@ async function createParents(count = 20) {
 
   const usersAdmin = await prisma.user.findMany({ where: { role: "AGENT" } });
   console.log(`✅ Found ${usersAdmin.length} agents`);
+
+  // const useerwToDeele = await prisma.user.deleteMany({
+  //   where: { role: "AGENT" },
+  // });
+  // console.log(useerwToDeele);
+  // console.log(`✅ Deleted ${useerwToDeele} admins`);
 }
 
 createParents();
+
+// pnpm tsx .\scripts\seed-agents.ts
