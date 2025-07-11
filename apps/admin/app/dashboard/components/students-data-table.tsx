@@ -200,15 +200,16 @@ const columns: ColumnDef<CanteenStudent>[] = [
     },
     cell: ({ row }) => {
       const hasActiveAbonnement = row.original.abonnements?.some(
-        (abonnement) => abonnement.status === "actif"
+        (abonnement) => abonnement.status == "ACTIF"
       );
 
       return (
         <Badge
           variant={hasActiveAbonnement ? "default" : "secondary"}
           className={cn(
-            !hasActiveAbonnement &&
-              "bg-muted-foreground/60 text-primary-foreground"
+            !hasActiveAbonnement
+              ? "bg-muted-foreground/60 text-primary-foreground"
+              : "bg-secondary text-primary-foreground"
           )}
         >
           {hasActiveAbonnement ? "Actif" : "Inactif"}

@@ -5,6 +5,8 @@ import "@workspace/ui/globals.css";
 import "@/style/global.css";
 import { Providers } from "@/components/providers/providers";
 import { NotificationManager } from "@/components/notification-manager";
+import { OnlineStatusProvider } from "@/components/online-status-provider";
+import { ChildSelectionProvider } from "@/context/child-selection-context";
 
 const fontSans = Geist({
   subsets: ["latin"],
@@ -32,7 +34,11 @@ export default function RootLayout({
         className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased `}
       >
         <NotificationManager />
-        <Providers>{children}</Providers>
+        <Providers>
+          <OnlineStatusProvider>
+            <ChildSelectionProvider>{children}</ChildSelectionProvider>
+          </OnlineStatusProvider>
+        </Providers>
       </body>
     </html>
   );

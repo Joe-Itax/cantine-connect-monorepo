@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     const limit = Number(searchParams.get("limit")) || 10;
 
     const result = await paginationQuery(prisma.canteenStudent, page, limit, {
-      // where: { isActive: true }, // Commenté comme dans ton code Express.js
+      // where: { isActive: true },
       select: {
         id: true,
         isActive: true,
@@ -48,7 +48,12 @@ export async function GET(req: NextRequest) {
             },
           },
         },
-        abonnements: true,
+        abonnements: {
+          orderBy: {
+            createdAt: "desc",
+          },
+          take: 1,
+        },
       },
     });
 

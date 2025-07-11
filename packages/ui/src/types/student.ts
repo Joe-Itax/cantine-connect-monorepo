@@ -14,6 +14,7 @@ export interface EnrolledStudent {
 export interface CanteenStudent {
   id: string;
   enrolledStudentId: string;
+  matricule: string;
   matriculeHashe: string;
   parentId: string;
   isActive: boolean;
@@ -27,6 +28,8 @@ export interface CanteenStudent {
   };
   abonnements?: {
     status: string;
+    duration: string;
+    price: string;
     startDate: string;
     endDate: string;
   }[];

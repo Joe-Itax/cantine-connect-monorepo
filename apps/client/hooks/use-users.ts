@@ -18,6 +18,8 @@ interface GetUsersResponse {
   data: User[];
 }
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 // Récupérer tous les users
 export function useUsersQuery(): {
   data: GetUsersResponse | undefined;
@@ -38,7 +40,7 @@ export function useUsersQuery(): {
     queryFn: async () => {
       try {
         const res = await fetch(
-          `/api/users?page=${
+          `${API_BASE_URL}/api/users?page=${
             pagination.pageIndex + 1
           }&limit=${pagination.pageSize}`,
           {
@@ -92,7 +94,7 @@ export function useUserQuery(userId: string): UseQueryResult<User, Error> {
     queryKey: ["user", userId],
     queryFn: async () => {
       try {
-        const res = await fetch(`/api/users/${userId}`, {
+        const res = await fetch(`${API_BASE_URL}/api/users/${userId}`, {
           credentials: "include",
         });
         if (!res.ok) throw new Error("Erreur lors du fetch de l'utilisateur");
@@ -121,7 +123,7 @@ export function useAddUserMutation(): UseMutationResult<
 
   return useMutation({
     mutationFn: async (user: Partial<User>) => {
-      const res = await fetch(`/api/users`, {
+      const res = await fetch(`${API_BASE_URL}/api/users`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -152,7 +154,7 @@ export function useDeactivateUserMutation() {
 
   return useMutation({
     mutationFn: async (userIds: string[]) => {
-      const res = await fetch(`/api/users/deactivate`, {
+      const res = await fetch(`${API_BASE_URL}/api/users/deactivate`, {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -184,7 +186,7 @@ export function useDeleteUserMutation() {
 
   return useMutation({
     mutationFn: async (userId: string) => {
-      const res = await fetch(`/api/users/${userId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/users/${userId}`, {
         method: "DELETE",
       });
 
@@ -223,9 +225,12 @@ export function useSearchUsersMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (query: string) => {
-      const res = await fetch(`/api/users/search?query=${query}`, {
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${API_BASE_URL}/api/users/search?query=${query}`,
+        {
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       if (!res.ok)
         throw new Error(
@@ -248,7 +253,7 @@ export function useUpdateUserMutation() {
   return useMutation({
     mutationFn: async (user: Partial<User>) => {
       const { id, ...payload } = user;
-      const res = await fetch(`/api/users/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/users/${id}`, {
         method: "PUT",
         credentials: "include",
         headers: {

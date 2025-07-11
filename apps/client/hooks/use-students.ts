@@ -37,7 +37,7 @@ export function useEnrolledStudentsQuery(): UseQueryResult<
     queryKey: ["enrolled-students"],
     queryFn: async () => {
       try {
-        const res = await fetch(`/api/students/enrolled`, {
+        const res = await fetch(`${API_BASE_URL}/api/students/enrolled`, {
           credentials: "include",
         });
         if (!res.ok) {
@@ -62,9 +62,12 @@ export function useSearchEnrolledStudentsMutation(): UseMutationResult<
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (query: string) => {
-      const res = await fetch(`/api/students/enrolled/search?query=${query}`, {
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${API_BASE_URL}/api/students/enrolled/search?query=${query}`,
+        {
+          credentials: "include",
+        }
+      );
       if (!res.ok) throw new Error("Erreur recherche des élèves inscrits");
       const data = await res.json();
       return data.data as EnrolledStudent[];
@@ -79,7 +82,7 @@ export function useEnrolledStudentByIdQuery(id: string) {
   return useQuery({
     queryKey: ["enrolled-student", id],
     queryFn: async () => {
-      const res = await fetch(`/api/students/enrolled/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/students/enrolled/${id}`, {
         credentials: "include",
       });
       if (!res.ok) throw new Error("Erreur récupération élève");
@@ -100,7 +103,7 @@ export function useUpdateEnrolledStudentMutation() {
       id: string;
       payload: Partial<EnrolledStudent>;
     }) => {
-      const res = await fetch(`/api/students/enrolled/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/students/enrolled/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -133,7 +136,7 @@ export function useCanteenStudentsQuery(): {
     queryFn: async () => {
       try {
         const res = await fetch(
-          `/api/students/canteen?page=${
+          `${API_BASE_URL}/api/students/canteen?page=${
             pagination.pageIndex + 1
           }&limit=${pagination.pageSize}`,
           {
@@ -187,9 +190,12 @@ export function useSearchCanteenStudentsMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (query: string) => {
-      const res = await fetch(`/api/students/canteen/search?query=${query}`, {
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${API_BASE_URL}/api/students/canteen/search?query=${query}`,
+        {
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       if (!res.ok)
         throw new Error(
@@ -210,7 +216,7 @@ export function useCanteenStudentByIdQuery(id: string) {
     queryKey: ["canteen-student", id],
     queryFn: async () => {
       try {
-        const res = await fetch(`/api/students/canteen/${id}`, {
+        const res = await fetch(`${API_BASE_URL}/api/students/canteen/${id}`, {
           credentials: "include",
         });
         if (!res.ok) throw new Error("Erreur récupération élève");
@@ -233,7 +239,7 @@ export function useAddCanteenStudentMutation() {
       parentId: string;
     }) => {
       try {
-        const res = await fetch(`/api/students/canteen`, {
+        const res = await fetch(`${API_BASE_URL}/api/students/canteen`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -286,7 +292,7 @@ export function useReRegisterCanteenStudentMutation() {
   return useMutation({
     mutationFn: async (canteenStudentId: string) => {
       const res = await fetch(
-        `/api/students/canteen/re-register/${canteenStudentId}`,
+        `${API_BASE_URL}/api/students/canteen/re-register/${canteenStudentId}`,
         {
           method: "POST",
           credentials: "include",
@@ -318,7 +324,7 @@ export function useRemoveCanteenStudentMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (canteenStudentIds: string[]) => {
-      const res = await fetch(`/api/students/canteen`, {
+      const res = await fetch(`${API_BASE_URL}/api/students/canteen`, {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -362,9 +368,12 @@ export function useCanteenStudentsByParentQuery(parentId: string) {
     queryKey: ["canteen-students-by-parent", parentId],
     queryFn: async () => {
       try {
-        const res = await fetch(`/api/students/canteen/by-parent/${parentId}`, {
-          credentials: "include",
-        });
+        const res = await fetch(
+          `${API_BASE_URL}/api/students/canteen/by-parent/${parentId}`,
+          {
+            credentials: "include",
+          }
+        );
         if (!res.ok) throw new Error("Erreur élèves par parent");
         const data = await res.json();
         return data.data as CanteenStudent[];
@@ -387,10 +396,10 @@ export function useBuySubscriptionMutation() {
       payload,
     }: {
       canteenStudentId: string;
-      payload: { duration: number; price: number };
+      payload: { duration: number; price?: number };
     }) => {
       const res = await fetch(
-        `/api/students/canteen/${canteenStudentId}/subscription`,
+        `${API_BASE_URL}/api/students/canteen/${canteenStudentId}/subscription`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -458,7 +467,7 @@ export function useNotificationsQuery(canteenStudentId: string) {
     queryKey: ["notifications", canteenStudentId],
     queryFn: async () => {
       const res = await fetch(
-        `/api/students/canteen/${canteenStudentId}/notifications`,
+        `${API_BASE_URL}/api/students/canteen/${canteenStudentId}/notifications`,
         { credentials: "include" }
       );
       if (!res.ok) throw new Error("Erreur récupération notifications");
@@ -474,7 +483,7 @@ export function useMarkAllNotificationsMutation() {
   return useMutation({
     mutationFn: async (canteenStudentId: string) => {
       const res = await fetch(
-        `/api/students/canteen/${canteenStudentId}/notifications`,
+        `${API_BASE_URL}/api/students/canteen/${canteenStudentId}/notifications`,
         {
           method: "PATCH",
           credentials: "include",
@@ -505,7 +514,7 @@ export function useMarkOneNotificationMutation() {
       notificationId: number;
     }) => {
       const res = await fetch(
-        `/api/students/canteen/${canteenStudentId}/notifications/${notificationId}`,
+        `${API_BASE_URL}/api/students/canteen/${canteenStudentId}/notifications/${notificationId}`,
         {
           method: "PATCH",
           credentials: "include",
@@ -530,12 +539,12 @@ export function useMealHistoryQuery(canteenStudentId: string) {
     queryKey: ["meal-history", canteenStudentId],
     queryFn: async () => {
       const res = await fetch(
-        `/api/students/canteen/${canteenStudentId}/meal-history`,
+        `${API_BASE_URL}/api/students/canteen/${canteenStudentId}/meal-history`,
         { credentials: "include" }
       );
       if (!res.ok) throw new Error("Erreur récupération historique repas");
       const data = await res.json();
-      return data.data as Meal[];
+      return data.calendar as Meal[];
     },
   });
 }

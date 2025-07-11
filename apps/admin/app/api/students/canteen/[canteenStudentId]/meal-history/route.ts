@@ -53,7 +53,8 @@ export async function GET(req: NextRequest, context: MealHistoryContext) {
 
     // Formater les données pour le calendrier
     const calendar = repas.map((repasItem) => ({
-      date: repasItem.date.toISOString().split("T")[0], // Format YYYY-MM-DD
+      date: repasItem.date.toISOString(),
+      // .split("T")[0], // Format YYYY-MM-DD
       status: repasItem.status, // true = servi, false = non servi, null = week-end ou absence
     }));
 

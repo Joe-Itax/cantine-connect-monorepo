@@ -54,16 +54,16 @@ export async function GET(req: NextRequest, context: ParentStudentsContext) {
         where: { parentId, isActive: true },
         include: {
           enrolledStudent: true,
-          abonnements: true,
+          abonnements: {
+            take: 1,
+            orderBy: {
+              createdAt: "desc",
+            },
+          },
         },
       });
 
       // Suppression des informations sensibles avant de renvoyer la réponse
-      // Note: Dans Next.js API Routes, le concept de "res.json" ne supprime pas explicitement
-      // les champs. On doit les exclure explicitement si on ne veut pas les envoyer.
-      // Pour `parent.user.password`, assure-toi que le champ n'est pas sélectionné du tout
-      // ou gère-le au niveau du modèle Prisma. Pour `searchableName`, on peut le mapper.
-
       const cleanedCanteenStudents = canteenStudents.map((student) => {
         const { searchableName, ...enrolledStudentWithoutSearchableName } =
           student.enrolledStudent;
