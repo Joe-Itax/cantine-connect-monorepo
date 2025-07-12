@@ -5,10 +5,11 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "db:generate": "prisma generate --no-engine",
+    "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +22,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@prisma/client": "6.9.0",
+    "@prisma/client": "6.11.1",
     "@prisma/extension-accelerate": "^2.0.1",
     "better-auth": "^1.2.8"
   },

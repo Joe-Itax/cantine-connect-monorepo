@@ -23,5 +23,8 @@
   "packageManager": "pnpm@10.13.0",
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "@prisma/nextjs-monorepo-workaround-plugin": "^6.11.1"
   }
 }
