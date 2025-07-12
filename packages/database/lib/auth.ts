@@ -11,7 +11,12 @@ export const auth = betterAuth({
     enabled: true,
     autoSignIn: false,
   },
-  trustedOrigins: ["http://localhost:3001", "http://localhost:3000"],
+  trustedOrigins: [
+    "http://localhost:3001",
+    "http://localhost:3000",
+    "cantine-connect.vercel.app",
+    "cantine-connect-admin.vercel.app",
+  ],
   user: {
     additionalFields: {
       role: {
