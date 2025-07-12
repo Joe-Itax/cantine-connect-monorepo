@@ -18,10 +18,10 @@ import { generateUniqueSlug } from "@workspace/ui/lib/generate-unique-slug";
  */
 export async function GET(req: NextRequest) {
   // Vérification du rôle avec ton middleware
-  const roleCheck = await requireRole(["ADMIN"]);
-  if (roleCheck) {
-    return roleCheck;
-  }
+  // const roleCheck = await requireRole(["ADMIN"]);
+  // if (roleCheck) {
+  //   return roleCheck;
+  // }
 
   try {
     const { searchParams } = new URL(req.url);

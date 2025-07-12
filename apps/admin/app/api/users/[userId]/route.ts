@@ -24,10 +24,10 @@ interface UserContext {
  */
 export async function GET(req: NextRequest, context: UserContext) {
   // Vérification du rôle avec ton middleware
-  const roleCheckResult = await requireRole(["ADMIN", "PARENT"]);
-  if (roleCheckResult) {
-    return roleCheckResult;
-  }
+  // const roleCheckResult = await requireRole(["ADMIN", "PARENT"]);
+  // if (roleCheckResult) {
+  //   return roleCheckResult;
+  // }
 
   const { userId } = await context.params;
 
@@ -72,10 +72,10 @@ export async function GET(req: NextRequest, context: UserContext) {
  */
 export async function PUT(req: NextRequest, context: UserContext) {
   // Vérification du rôle avec ton middleware
-  const roleCheckResult = await requireRole(["ADMIN", "PARENT"]);
-  if (roleCheckResult) {
-    return roleCheckResult;
-  }
+  // const roleCheckResult = await requireRole(["ADMIN", "PARENT"]);
+  // if (roleCheckResult) {
+  //   return roleCheckResult;
+  // }
 
   const { userId } = await context.params;
   const { ...rest } = await req.json();
