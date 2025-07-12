@@ -18,7 +18,7 @@ interface CanteenStudentNotificationsContext {
 export async function GET(
   req: NextRequest,
   context: CanteenStudentNotificationsContext
-) {
+): Promise<NextResponse> {
   const roleCheckResult = await requireRole(["ADMIN", "PARENT"]);
   if (roleCheckResult) {
     return roleCheckResult;

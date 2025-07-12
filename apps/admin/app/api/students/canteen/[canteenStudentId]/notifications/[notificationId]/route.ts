@@ -19,10 +19,10 @@ export async function PATCH(
   req: NextRequest,
   context: SingleNotificationContext
 ) {
-  const roleCheckResult = await requireRole(["ADMIN", "PARENT"]);
-  if (roleCheckResult) {
-    return roleCheckResult;
-  }
+  // const roleCheckResult = await requireRole(["ADMIN", "PARENT"]);
+  // if (roleCheckResult) {
+  //   return roleCheckResult;
+  // }
 
   const { notificationId } = await context.params;
   const notificationIdInt = parseInt(notificationId);

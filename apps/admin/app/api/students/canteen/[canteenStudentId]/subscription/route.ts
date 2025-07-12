@@ -19,10 +19,10 @@ export async function POST(
   req: NextRequest,
   context: CanteenStudentSubscriptionContext
 ) {
-  const roleCheckResult = await requireRole(["PARENT", "ADMIN"]);
-  if (roleCheckResult) {
-    return roleCheckResult;
-  }
+  // const roleCheckResult = await requireRole(["PARENT", "ADMIN"]);
+  // if (roleCheckResult) {
+  //   return roleCheckResult;
+  // }
 
   const { duration, ...extraFields } = await req.json();
   const { canteenStudentId } = await context.params;

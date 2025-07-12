@@ -15,10 +15,10 @@ interface CanteenStudentContext {
  * Récupérer les détails d'un élève enregistré à la cantine (Admin seulement).
  */
 export async function GET(req: NextRequest, context: CanteenStudentContext) {
-  const roleCheckResult = await requireRole("ADMIN");
-  if (roleCheckResult) {
-    return roleCheckResult;
-  }
+  // const roleCheckResult = await requireRole("ADMIN");
+  // if (roleCheckResult) {
+  //   return roleCheckResult;
+  // }
 
   const { canteenStudentId } = await context.params;
 

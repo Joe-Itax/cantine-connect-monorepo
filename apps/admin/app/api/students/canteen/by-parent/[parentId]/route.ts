@@ -15,10 +15,10 @@ interface ParentStudentsContext {
  * Lire les élèves enregistrés à la Cantine par l'ID de leur parent (Admin, Parent).
  */
 export async function GET(req: NextRequest, context: ParentStudentsContext) {
-  const roleCheckResult = await requireRole(["ADMIN", "PARENT"]);
-  if (roleCheckResult) {
-    return roleCheckResult;
-  }
+  // const roleCheckResult = await requireRole(["ADMIN", "PARENT"]);
+  // if (roleCheckResult) {
+  //   return roleCheckResult;
+  // }
 
   const { parentId } = await context.params;
 
