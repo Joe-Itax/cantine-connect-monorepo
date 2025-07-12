@@ -3,11 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
-  "http://127.0.0.1:5500",
-  "https://bjsaccess.com",
-  "https://bjsaccess.vercel.app",
-  "https://bjsaccess-back-office.vercel.app",
-  "https://bjsaccess-backoffice.vercel.app",
+  "https://cantine-connect.vercel.app",
+  "https://cantine-connect-admin.vercel.app",
 ];
 
 export function corsMiddleware(req: NextRequest) {
