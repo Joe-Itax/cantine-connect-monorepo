@@ -5,13 +5,15 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/client"
+  provider      = "prisma-client-js"
+  output        = "../generated/client"
+  binaryTargets = ["native", "windows", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -22,6 +24,7 @@ model User {
   name           String
   searchableName String   @default("")
   isActive       Boolean  @default(true)
+  slug           String   @unique
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   parent         Parent?
@@ -52,6 +55,7 @@ model EnrolledStudent {
   gender                String
   matricule             String          @unique
   isRegisteredToCanteen Boolean         @default(false)
+  slug                  String          @unique
   createdAt             DateTime        @default(now())
   updatedAt             DateTime        @updatedAt
   canteenStudent        CanteenStudent?
@@ -68,6 +72,7 @@ model CanteenStudent {
   matriculeHashe    String          @unique
   parentId          String
   isActive          Boolean         @default(true)
+  slug              String          @unique
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
   abonnements       Abonnement[]
@@ -174,4 +179,13 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  message   String   @db.Text
+  createdAt DateTime @default(now())
+  isRead    Boolean  @default(false)
 }
