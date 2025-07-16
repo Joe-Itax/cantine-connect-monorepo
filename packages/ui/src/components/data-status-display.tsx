@@ -4,7 +4,7 @@ import { Button } from "@workspace/ui/components/button";
 
 interface dataStatusDisplayProps {
   isPending: boolean;
-  hasError: boolean;
+  hasError?: boolean;
   showContent?: boolean;
   errorObject?: Error | null;
   refetch?: () => void;

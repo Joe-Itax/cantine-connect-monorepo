@@ -8,13 +8,21 @@ import {
 import EditProfile from "./edit-profile";
 import { Separator } from "@workspace/ui/components/separator";
 import { authClient } from "database/auth-client";
+import DataStatusDisplay from "@workspace/ui/components/data-status-display";
 
 export default function ProfilePage() {
-  const { data: session } = authClient.useSession();
+  const { data: session, isPending, error, refetch } = authClient.useSession();
   const user = session?.user;
 
-  if (!user) {
-    return <div>Chargement du profil...</div>;
+  if (isPending || error || !user) {
+    return (
+      <DataStatusDisplay
+        isPending={isPending}
+        // hasError={error}
+        errorObject={error}
+        refetch={refetch}
+      />
+    );
   }
 
   const avatarFallback = user.name

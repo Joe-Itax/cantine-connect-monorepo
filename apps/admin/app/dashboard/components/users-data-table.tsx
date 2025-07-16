@@ -37,6 +37,7 @@ import { cn } from "@workspace/ui/lib/utils";
 import { Badge } from "@workspace/ui/components/badge";
 import { Button } from "@workspace/ui/components/button";
 import { Checkbox } from "@workspace/ui/components/checkbox";
+import DataStatusDisplay from "@workspace/ui/components/data-status-display";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -255,6 +256,7 @@ export default function UsersDataTable() {
     setPage,
     setPageSize,
   } = useUsersQuery();
+  const deactivateUserMutation = useDeactivateUserMutation();
 
   const totalItems =
     (searchUsersMutation.data?.totalItems ?? usersData?.totalItems) || 0;
@@ -322,15 +324,9 @@ export default function UsersDataTable() {
       ?.setFilterValue(newFilterValue.length ? newFilterValue : undefined);
   };
 
-  if (isLoading && users.length === 0) {
-    return <LoadingDataTable />;
+  if (isError || (isLoading && users.length === 0)) {
+    return <DataStatusDisplay isPending={isLoading} hasError={isError} />;
   }
-
-  if (isError) {
-    return <ErrorThenRefresh />;
-  }
-
-  const deactivateUserMutation = useDeactivateUserMutation();
 
   const handleDeactivateRows = async () => {
     const selectedIds = table

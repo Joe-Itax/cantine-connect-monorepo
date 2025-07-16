@@ -5,6 +5,7 @@ import { SectionCards } from "@/components/section-cards";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 import { useDashboardStatsQuery } from "@/hooks/use-dashboard-overview";
 import { DashboardStats } from "@workspace/ui/types/dashboard-stat";
+import DataStatusDisplay from "@workspace/ui/components/data-status-display";
 
 const defaultStats: DashboardStats = {
   totalCanteenStudents: 0,
@@ -19,7 +20,18 @@ const defaultStats: DashboardStats = {
 };
 
 export default function DashboardPage() {
-  const { data: stats = defaultStats } = useDashboardStatsQuery();
+  const { data: stats, isError, isPending, refetch } = useDashboardStatsQuery();
+
+  if (isPending || isError) {
+    return (
+      <DataStatusDisplay
+        isPending={isPending}
+        hasError={isError}
+        refetch={refetch as () => void}
+      />
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
       {!stats.mealsGraphData.length ? (

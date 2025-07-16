@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
@@ -107,6 +106,7 @@ import LoadingDataTable from "./loading";
 import { useRouter } from "next/navigation";
 
 import type { CanteenStudent } from "@workspace/ui/types/student";
+import DataStatusDisplay from "@workspace/ui/components/data-status-display";
 
 const columns: ColumnDef<CanteenStudent>[] = [
   {
@@ -281,6 +281,7 @@ export default function StudentsDataTable() {
     pagination,
     setPage,
     setPageSize,
+    refetch,
   } = useCanteenStudentsQuery();
 
   const totalItems =
@@ -377,12 +378,14 @@ export default function StudentsDataTable() {
       ?.setFilterValue(newFilterValue.length ? newFilterValue : undefined);
   };
 
-  if (isLoading && canteenStudents.length === 0) {
-    return <LoadingDataTable />;
-  }
-
-  if (isError) {
-    return <ErrorThenRefresh />;
+  if (isError || (isLoading && canteenStudents.length === 0)) {
+    return (
+      <DataStatusDisplay
+        isPending={isLoading}
+        hasError={isError}
+        refetch={refetch}
+      />
+    );
   }
 
   return (
