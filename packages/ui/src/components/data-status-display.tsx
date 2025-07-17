@@ -17,16 +17,6 @@ export default function DataStatusDisplay({
   errorObject,
   refetch,
 }: dataStatusDisplayProps) {
-  if (isPending || !showContent) {
-    return (
-      <div className="w-full py-64 flex justify-center items-center">
-        <div className="flex gap-4 items-center">
-          Chargement... <Spinner />
-        </div>
-      </div>
-    );
-  }
-
   if (hasError) {
     return (
       <div className="flex h-[70vh] flex-col items-center justify-center gap-4 text-center">
@@ -62,5 +52,16 @@ export default function DataStatusDisplay({
       </div>
     );
   }
+
+  if (isPending || !showContent) {
+    return (
+      <div className="w-full py-64 flex justify-center items-center">
+        <div className="flex gap-4 items-center">
+          Chargement... <Spinner />
+        </div>
+      </div>
+    );
+  }
+
   return null;
 }

@@ -1,4 +1,3 @@
-// apps/client/context/child-selection-context.tsx
 "use client";
 
 import React, {
@@ -7,9 +6,10 @@ import React, {
   useState,
   useEffect,
   ReactNode,
+  useMemo,
 } from "react";
 import { useCanteenStudentsByParentQuery } from "@/hooks/use-students";
-import { CanteenStudent } from "@workspace/ui/types/student"; // Assurez-vous d'avoir ce type
+import { CanteenStudent } from "@workspace/ui/types/student";
 import { authClient } from "database/auth-client";
 
 interface ChildSelectionContextType {
@@ -36,31 +36,40 @@ export const ChildSelectionProvider = ({
     data: canteenStudents,
     isLoading: isLoadingChildren,
     isError: isErrorChildren,
-  } = useCanteenStudentsByParentQuery(parentId || ""); // Passer un ID vide si parentId n'est pas prêt
+  } = useCanteenStudentsByParentQuery(parentId || "");
 
-  const [selectedChild, setSelectedChild] = useState<CanteenStudent | null>(
+  const [selectedChildId, setSelectedChildIdState] = useState<string | null>(
     null
   );
+  const selectedChild = useMemo(() => {
+    if (!canteenStudents || !selectedChildId) {
+      return null;
+    }
+    return (
+      canteenStudents.find((child) => child.id === selectedChildId) || null
+    );
+  }, [canteenStudents, selectedChildId]);
 
-  // Initialiser selectedChild une fois que les données sont chargées ou si parentId change
+  // Initialiser selectedChildId ou le mettre à jour si l'enfant précédemment sélectionné n'existe plus
   useEffect(() => {
-    if (canteenStudents && canteenStudents.length > 0 && !selectedChild) {
-      setSelectedChild(canteenStudents[0] || null);
-    } else if (canteenStudents && canteenStudents.length === 0) {
-      setSelectedChild(null); // Aucun enfant si la liste est vide
+    if (canteenStudents && canteenStudents.length > 0) {
+      if (
+        !selectedChildId ||
+        !canteenStudents.some((child) => child.id === selectedChildId)
+      ) {
+        // Si aucun enfant n'est sélectionné, ou si l'enfant sélectionné n'est plus dans la liste,
+        // sélectionnez le premier.
+        setSelectedChildIdState(canteenStudents[0]?.id || null);
+      }
+    } else {
+      setSelectedChildIdState(null); // Aucun enfant si la liste est vide
     }
-  }, [canteenStudents, selectedChild]);
+  }, [canteenStudents, selectedChildId]);
 
-  // Permet de changer l'enfant sélectionné par son ID
+  // Cette fonction permet de changer l'enfant sélectionné par son ID
+  // Elle met à jour l'état selectedChildId
   const setSelectedChildId = (childId: string | null) => {
-    if (childId === null) {
-      setSelectedChild(null);
-      return;
-    }
-    const foundChild = canteenStudents?.find((child) => child.id === childId);
-    if (foundChild) {
-      setSelectedChild(foundChild);
-    }
+    setSelectedChildIdState(childId);
   };
 
   return (

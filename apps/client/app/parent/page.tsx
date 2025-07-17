@@ -29,14 +29,40 @@ export default function ParentHomePage() {
   const { abonnements: abo } = selectedChild;
   const abonnements = abo && abo.length > 0 ? abo[0] : undefined;
 
-  const subscriptionStatus = abonnements
-    ? new Date(abonnements.endDate as string) > new Date()
-      ? "Actif"
-      : "Expiré"
-    : "Aucun abonnement";
-  const subscriptionEndDate = abonnements
-    ? new Date(abonnements?.endDate).toLocaleDateString("fr-FR")
-    : "N/A";
+  let subscriptionStatus:
+    | "Actif"
+    | "Expiré"
+    | "Aucun abonnement"
+    | "Non défini";
+  let subscriptionEndDate: string;
+
+  if (!abonnements || !abonnements.id) {
+    subscriptionStatus = "Aucun abonnement";
+    subscriptionEndDate = "N/A";
+  } else if (!abonnements.endDate) {
+    subscriptionStatus = "Expiré";
+    subscriptionEndDate = "N/A";
+  } else {
+    const currentTimestamp = new Date().getTime();
+    const endDateTimestamp = new Date(abonnements.endDate).getTime();
+
+    if (endDateTimestamp > currentTimestamp) {
+      subscriptionStatus = "Actif";
+    } else {
+      // Si la date est passée ou égale à maintenant, c'est expiré
+      subscriptionStatus = "Expiré";
+    }
+
+    // Formatage la date de fin
+    subscriptionEndDate = new Date(abonnements.endDate).toLocaleDateString(
+      "fr-FR",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }
+    );
+  }
 
   const getStatusColor = (status: string) => {
     switch (status) {

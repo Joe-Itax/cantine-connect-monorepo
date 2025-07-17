@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { cn } from "@workspace/ui/lib/utils";
 import { LoginSchema } from "@/lib/validators/login";
@@ -9,9 +9,6 @@ import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
 import { authClient } from "database/auth-client";
 import { useNotification } from "@workspace/ui/hooks/use-notification";
-import { useAuthRedirect } from "@/hooks/use-auth-redirect";
-import DataStatusDisplay from "@workspace/ui/components/data-status-display";
-import { useRouter } from "next/navigation";
 
 export function LoginForm({
   className,
@@ -26,44 +23,6 @@ export function LoginForm({
     email?: string[];
     password?: string[];
   }>({});
-
-  // const router = useRouter();
-  const [showContent, setShowContent] = useState(false);
-  const {
-    isPending: isPendingRedirect,
-    error,
-    // user,
-  } = useAuthRedirect({
-    ifAuthenticatedParent: "/parent",
-    ifAuthenticatedAgent: "/agent",
-  });
-  useEffect(() => {
-    if (!isPendingRedirect) {
-      const timer = setTimeout(() => {
-        setShowContent(true);
-      }, 5000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [isPendingRedirect]);
-
-  // useEffect(() => {
-  //   if (user.role === "PARENT") {
-  //     router.replace("/parent");
-  //   } else if (user.role === "AGENT") {
-  //     router.replace("/agent");
-  //   }
-  // }, [user]);
-
-  if (isPendingRedirect || error || !showContent) {
-    return (
-      <DataStatusDisplay
-        showContent={showContent}
-        isPending={isPendingRedirect}
-        hasError={error}
-      />
-    );
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -110,7 +69,6 @@ export function LoginForm({
       }
 
       show("success", "Connexion réussie");
-      // Redirect();
     } catch (error: unknown) {
       console.error("Login error:", error);
     } finally {

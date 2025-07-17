@@ -27,6 +27,7 @@ export interface CanteenStudent {
     };
   };
   abonnements?: {
+    id: string;
     status: string;
     duration: string;
     price: string;

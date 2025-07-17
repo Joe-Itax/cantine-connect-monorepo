@@ -15,10 +15,11 @@ import {
 } from "@workspace/ui/components/radio-group";
 import { Label } from "@workspace/ui/components/label";
 import { toast } from "sonner";
-import { Loader2, Calendar } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { useChildSelection } from "@/context/child-selection-context";
 import { useBuySubscriptionMutation } from "@/hooks/use-students";
 import { pricing } from "@workspace/ui/lib/pricing";
+import { Spinner } from "@workspace/ui/components/spinner";
 
 export default function ParentSubscriptionPage() {
   const { selectedChild } = useChildSelection();
@@ -43,7 +44,7 @@ export default function ParentSubscriptionPage() {
   if (!selectedChild) {
     return (
       <div className="flex flex-col items-center justify-center h-full text-gray-600 py-20">
-        <Loader2 className="h-16 w-16 animate-spin text-blue-500 mb-4" />
+        <Spinner className="h-16 w-16 animate-spin text-blue-500 mb-4" />
         <p className="text-lg">Chargement de l'enfant sélectionné...</p>
       </div>
     );
@@ -53,9 +54,15 @@ export default function ParentSubscriptionPage() {
   const isSubscriptionActive = currentSubscription
     ? new Date(currentSubscription.endDate) > new Date()
     : false;
-  const subscriptionEndDate = currentSubscription
-    ? new Date(currentSubscription.endDate).toLocaleDateString("fr-FR")
-    : "N/A";
+
+  const subscriptionEndDate =
+    currentSubscription && currentSubscription.endDate
+      ? new Date(currentSubscription.endDate).toLocaleDateString("fr-FR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      : "N/A";
 
   const handleBuySubscription = async () => {
     if (!selectedChild || selectedDuration === null) {
@@ -69,7 +76,7 @@ export default function ParentSubscriptionPage() {
         payload: { duration: selectedDuration },
       });
       toast.success("Abonnement acheté avec succès !");
-      setSelectedDuration(null); // Réinitialiser la sélection
+      setSelectedDuration(null);
     } catch (error: any) {
       console.error("Erreur lors de l'achat de l'abonnement:", error);
 
@@ -207,9 +214,7 @@ export default function ParentSubscriptionPage() {
                   selectedDuration === null || buySubscriptionMutation.isPending
                 }
               >
-                {buySubscriptionMutation.isPending ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : null}
+                {buySubscriptionMutation.isPending ? <Spinner /> : null}
                 Payer maintenant
               </Button>
             </div>

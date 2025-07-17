@@ -412,11 +412,17 @@ export function useBuySubscriptionMutation() {
     },
     onSuccess: () => {
       show("success", "Abonnement acheté avec succès.");
+
       queryClient.invalidateQueries({
-        queryKey: ["dashboard-overview"],
+        queryKey: ["canteen-students-by-parent"],
+        exact: false,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["canteen-students"],
         exact: false,
       });
     },
+
     onError: () => {
       show("error", "Erreur lors de l'achat de l'abonnement.");
     },
