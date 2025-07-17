@@ -19,10 +19,10 @@ export async function GET(
   req: NextRequest,
   context: CanteenStudentNotificationsContext
 ): Promise<NextResponse> {
-  const roleCheckResult = await requireRole(["ADMIN", "PARENT"]);
-  if (roleCheckResult) {
-    return roleCheckResult;
-  }
+  // const roleCheckResult = await requireRole(["ADMIN", "PARENT"]);
+  // if (roleCheckResult) {
+  //   return roleCheckResult;
+  // }
 
   const { canteenStudentId } = await context.params;
   const { searchParams } = new URL(req.url);
@@ -83,10 +83,10 @@ export async function PATCH(
   req: NextRequest,
   context: CanteenStudentNotificationsContext
 ) {
-  const roleCheckResult = await requireRole(["ADMIN", "PARENT"]);
-  if (roleCheckResult) {
-    return roleCheckResult;
-  }
+  // const roleCheckResult = await requireRole(["ADMIN", "PARENT"]);
+  // if (roleCheckResult) {
+  //   return roleCheckResult;
+  // }
 
   const { canteenStudentId } = await context.params;
 
